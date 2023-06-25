@@ -7,13 +7,13 @@ import App from './app.js';
 const cli = meow(
   `
     Usage
-      $ up-date
+      $ up-d4te
 
     Options
       --name  Your name
 
     Examples
-      $ up-date --name=Jane
+      $ up-d4te --name=Jane
       Hello, Jane
   `,
   {
