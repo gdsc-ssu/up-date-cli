@@ -11,7 +11,7 @@ const App = () => {
 		.prompt({
 		  type: 'input',
 		  name: 'username',
-		  message: 'What is your name?'
+		  message: 'What is your name?!'
 		})
 		.then(answer => setName(answer.username));
 	}, []);
