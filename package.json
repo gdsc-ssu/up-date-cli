@@ -1,12 +1,18 @@
 {
 	"name": "up-d4te",
 	"version": "0.0.1",
+	"description": "Recommend Dating Course in Korea with CLI",
+	"author": {
+		"name": "Sanghyeon Sim",
+		"email": "simsanghyeon00@gmail.com"
+	},
 	"license": "MIT",
 	"bin": "dist/cli.js",
 	"type": "module",
 	"engines": {
 		"node": ">=16"
 	},
+	"homepage": "https://github.com/gdsc-ssu/up-date-cli#readme",
 	"scripts": {
 		"build": "babel --out-dir=dist source",
 		"dev": "babel --out-dir=dist --watch source",
