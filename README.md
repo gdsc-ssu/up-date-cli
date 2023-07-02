@@ -24,3 +24,13 @@ $ up-d4te --help
     $ up-d4te --name=Jane
     Hello, Jane
 ```
+
+## For Developer
+run
+```bash
+$ npm run dev
+```
+and run in another terminal
+```bash
+$ npm start
+```
