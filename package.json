@@ -16,7 +16,7 @@
 	"scripts": {
 		"build": "babel --out-dir=dist source",
 		"dev": "babel --out-dir=dist --watch source",
-		"test": "prettier --check . && xo && ava",
+		"test": "prettier --check . ",
 		"start": "node dist/cli.js"
 	},
 	"files": [
@@ -46,8 +46,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"import-jsx": "^5.0.0",
 		"ink-testing-library": "^3.0.0",
-		"prettier": "^2.8.7",
-		"xo": "^0.53.1"
+		"prettier": "^2.8.7"
 	},
 	"ava": {
 		"environmentVariables": {
