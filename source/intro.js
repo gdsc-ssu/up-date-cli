@@ -1,3 +1,4 @@
+import React from 'react';
 import { Text, Newline } from 'ink';
 
 const Intro = () => {
