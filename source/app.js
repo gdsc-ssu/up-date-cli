@@ -2,23 +2,9 @@ import React, {useState} from 'react';
 import {Box, Text, Newline} from 'ink';
 import UserInfo from './UserInfo.js';
 import Search from './Search.js';
-import Enquirer from 'enquirer';
-import example from './api.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
-	const [name, setName] = React.useState();
-
-	React.useEffect(() => {
-	  const enquirer = new Enquirer();
-	  enquirer
-		.prompt({
-		  type: 'input',
-		  name: 'username',
-		  message: 'HTTP Answer : ' + example,
-		})
-		.then(answer => setName(answer.username));
-	}, []);
 
 	return (
 		<>
