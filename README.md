@@ -26,12 +26,16 @@ $ up-d4te --help
 ```
 
 ## For Developer
+
 for install packages and make watcher for build program
+
 ```bash
 $ npm i
 $ npm run dev
 ```
+
 and run in another terminal
+
 ```bash
 $ npm start
 ```
