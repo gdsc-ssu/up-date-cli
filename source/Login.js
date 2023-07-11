@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {Text, Box, useInput, Newline} from 'ink';
 import TextInput from 'ink-text-input';
 
-const UserInfo = ({setShow}) => {
+const Login = ({Id, setId, setShow}) => {
 	const [nextStepInfo, setNextStepInfo] = useState(false);
-	const [Id, setId] = useState('');
 	const [Password, setPassword] = useState('');
+	const [isSelected, setIsSelected] = useState(true);
 
 	useInput((input, key) => {
 		if (!key) return;
@@ -28,7 +28,7 @@ const UserInfo = ({setShow}) => {
 	return (
 		<Box marginY={1} flexDirection="column">
 			<Box>
-				<Text color="red">ID: </Text>
+				<Text color="red">IDddfff: </Text>
 				{nextStepInfo ? (
 					<Text>{Id}</Text>
 				) : (
@@ -47,4 +47,4 @@ const UserInfo = ({setShow}) => {
 	);
 };
 
-export default UserInfo;
+export default Login;
