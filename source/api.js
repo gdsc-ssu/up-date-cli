@@ -1,19 +1,14 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 const api = axios.create({
-	baseURL: 'https://api.themoviedb.org/3',
+	baseURL: 'https://api.realworld.io/api/articles',
 	headers: {'content-type': 'application/json'},
 });
 
-const TypeMoive = search =>
-	api.get(`/movie/${search}`, {
+const searchArticles = api.get(api, {
 		headers: {
-			authorization: `Bearer ${API_KEY}`,
+			accept: `application/json`
 		},
 	});
 
-export {TypeMoive};
+export {searchArticles};

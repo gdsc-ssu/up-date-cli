@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import {Box, Text, Newline} from 'ink';
 import Login from './Login.js';
 import Search from './Search.js';
+import React, {useContext, useState} from 'react';
+import {Box, Text, useInput} from 'ink';
 import Intro from './intro.js';
 import SelectUserInfo from './SelectUserInfo.js';
 import Register from './Register.js';
+import { StoreContext } from './store.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
@@ -15,6 +18,9 @@ const App = () => {
 	return (
 		<>
 			<Intro />
+			<Text>
+					press "help" to see the list of commands
+				</Text>
 			{show ? (
 				<Text color="red">Username : {Id}</Text>
 			) : (
