@@ -28,7 +28,7 @@ const Login = ({Id, setId, setShow}) => {
 	return (
 		<Box marginY={1} flexDirection="column">
 			<Box>
-				<Text color="red">IDddfff: </Text>
+				<Text color="red">ID: </Text>
 				{nextStepInfo ? (
 					<Text>{Id}</Text>
 				) : (
