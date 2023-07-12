@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput, Newline} from 'ink';
 import TextInput from 'ink-text-input';
-import {TypeMoive} from './api.js';
+import {searchArticles} from './api.js';
 
 const Search = () => {
 	const [search, setSearch] = useState('');
@@ -14,7 +14,7 @@ const Search = () => {
 		if (key.return) {
 			if (search === 'popular' || search === 'upcoming') {
 				setErrorMessage(false);
-				TypeMoive(search)
+				searchArticles
 					.then(response => {
 						setList(response.data.results.slice(0, 4));
 					})
