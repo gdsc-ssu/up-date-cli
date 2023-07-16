@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput, Newline} from 'ink';
 import TextInput from 'ink-text-input';
-import {searchArticles} from './api.js';
+import {TypeMoive} from './api.js';
 
 const Search = () => {
 	const [search, setSearch] = useState('');
@@ -14,13 +14,11 @@ const Search = () => {
 		if (key.return) {
 			if (search === 'popular' || search === 'upcoming') {
 				setErrorMessage(false);
-				searchArticles
-					.then(response => {
-						setList(response.data.results.slice(0, 4));
-					})
-					.catch(error => {
-						console.error(error);
-					});
+				TypeMoive.then(response => {
+					setList(response.data.results.slice(0, 4));
+				}).catch(error => {
+					console.error(error);
+				});
 			} else {
 				setErrorMessage(false);
 				setErrorMessage(true);
