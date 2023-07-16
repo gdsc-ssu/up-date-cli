@@ -14,7 +14,7 @@ const Search = () => {
 		if (key.return) {
 			if (search === 'popular' || search === 'upcoming') {
 				setErrorMessage(false);
-				TypeMoive.then(response => {
+				TypeMoive(search).then(response => {
 					setList(response.data.results.slice(0, 4));
 				}).catch(error => {
 					console.error(error);
