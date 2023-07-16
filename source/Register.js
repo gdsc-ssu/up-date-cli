@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Box, useInput, Newline} from 'ink';
+import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 
 const Register = ({setIsSelected, setSpaceStep}) => {
