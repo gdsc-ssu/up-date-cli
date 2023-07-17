@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {Box, Text} from 'ink';
-import Login from './login.js';
-import Search from './search.js';
+import Login from './Login.js';
+import Search from './Search.js';
 import Intro from './component/intro.js';
 import SelectUserInfo from './SelectUserInfo.js';
-import Register from './register.js';
+import Register from './Register.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
