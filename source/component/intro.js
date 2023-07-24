@@ -3,7 +3,7 @@ import { Text, Newline } from 'ink';
 
 const Intro = () => {
     return ( 
-        <Text>
+			<Text color="#00FF19">
 			<Text>   __  __                __      __          ____  ____  ____      ____________________<Newline/></Text>
 			<Text>  / / / /___        ____/ /___ _/ /____     / __ \/ __ \/ __ \    / / ____/ ____/_  __/<Newline/></Text>
 			<Text> / / / / __ \______/ __  / __ `/ __/ _ \   / /_/ / /_/ / / / /_  / / __/ / /     / /   <Newline/></Text>

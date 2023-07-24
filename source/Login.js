@@ -28,7 +28,7 @@ const Login = ({Id, setId, setShow}) => {
 	return (
 		<Box marginY={1} flexDirection="column">
 			<Box>
-				<Text color="red">ID: </Text>
+				<Text color="#00FF19">ID: </Text>
 				{nextStepInfo ? (
 					<Text>{Id}</Text>
 				) : (
@@ -37,7 +37,7 @@ const Login = ({Id, setId, setShow}) => {
 			</Box>
 			{nextStepInfo ? (
 				<Box>
-					<Text color="red">PASSWORD: </Text>
+					<Text color="#00FF19">PASSWORD: </Text>
 					<TextInput value={Password} onChange={setPassword} />
 				</Box>
 			) : (

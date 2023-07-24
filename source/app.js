@@ -17,7 +17,7 @@ const App = () => {
 			<Intro />
 			<Text>press "help" to see the list of commands</Text>
 			{show ? (
-				<Text color="red">Username : {Id}</Text>
+				<Text color="white">Username : {Id}</Text>
 			) : (
 				<SelectUserInfo
 					isSelected={isSelected}
@@ -38,7 +38,7 @@ const App = () => {
 						''
 					)
 				) : (
-					<Search />
+					<Search setShow={setShow} />
 				)}
 			</Box>
 		</>
