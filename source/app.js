@@ -6,12 +6,17 @@ import SelectUserInfo from './SelectUserInfo.js';
 import Register from './Register.js';
 import SearchContainer from './SearchContainer.js';
 import theme from './Theme.js';
+import ShopDetail from './component/shop_detail.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
 	const [spaceStep, setSpaceStep] = useState('');
 	const [isSelected, setIsSelected] = useState(true);
 	const [Id, setId] = useState('');
+
+	return ( 
+		<ShopDetail />
+	);
 
 	return (
 		<>
