@@ -17,7 +17,8 @@
 		"build": "babel --out-dir=dist source",
 		"dev": "babel --out-dir=dist --watch source",
 		"test": "prettier --check . ",
-		"start": "node dist/cli.js"
+		"start": "node dist/cli.js",
+		"format": "prettier --write ."
 	},
 	"files": [
 		"dist"
@@ -32,7 +33,7 @@
 		"meow": "^11.0.0",
 		"mobx": "^6.9.0",
 		"react": "^18.2.0",
-		"prettier": "^2.8.8"
+		"prettier": "3.0.1"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.21.0",
