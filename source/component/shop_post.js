@@ -98,7 +98,7 @@ const ShopPost = () => {
 		}
 	});
 
-	const debouncedSearch = debounce(async () => {
+	const debouncedSearch = async () => {
 		if (!shopTitle.length) {
 			setShopKakaoShops([]);
 			return;
@@ -106,7 +106,7 @@ const ShopPost = () => {
 		const response = await fetchKakaoShops(shopTitle);
 		setShopKakaoShops(response.data['documents']);
 		setSelectedShopIndex(0);
-	}, 1000);
+	};
 
 	React.useEffect(() => {
 		debouncedSearch();
