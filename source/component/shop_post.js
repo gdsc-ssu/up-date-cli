@@ -4,7 +4,7 @@ import TextInput from 'ink-text-input';
 import {debounce} from '../common/input.js';
 import {fetchKakaoShops} from '../api/kakao.js';
 
-const dayContainer = (isFocused, isSelected, day) => {
+const dayContainer = (isFocused, isSelected, day, key) => {
 	var color = 'white';
 
 	if (isSelected) {
@@ -15,7 +15,7 @@ const dayContainer = (isFocused, isSelected, day) => {
 	}
 
 	return (
-		<Box>
+		<Box key={key}>
 			<Text color={color}>{day}</Text>
 		</Box>
 	);
@@ -24,20 +24,27 @@ const dayContainer = (isFocused, isSelected, day) => {
 const ShopPost = () => {
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
 	const [shopTitle, setShopTitle] = useState('');
-	const [shopKakaoShops, setShopKakaoShops] = useState([]);
+	const [kakaoShops, setKakaoShops] = useState([]);
 	const [selectedShopIndex, setSelectedShopIndex] = useState(0);
 
 	const [openDayList, setOpenDayList] = useState([]); // 추가: 오픈 요일
 	const [openDayIndex, setOpenDayIndex] = useState(0); // 추가: 오픈 요일 인덱스
 	const dayList = ['월', '화', '수', '목', '금', '토', '일', '']; // 요일 리스트
 
-	//openTimeHour, openTimeMinute, closeTimeHour, closeTimeMinute
+	const [openTime, setOpenTime] = useState('');
 	const [openTimeHour, setOpenTimeHour] = useState(0);
 	const [openTimeMinute, setOpenTimeMinute] = useState(0);
+
+	const [closeTime, setCloseTime] = useState('');
 	const [closeTimeHour, setCloseTimeHour] = useState(0);
 	const [closeTimeMinute, setCloseTimeMinute] = useState(0);
 
 	const [timeFocus, setTimeFocus] = useState(0); // 0 for hour, 1 for minute
+
+	// menu
+	const [menuList, setMenuList] = useState([]);
+	const [menuName, setMenuName] = useState('');
+	const [menuPrice, setMenuPrice] = useState(0);
 
 	useInput((input, key) => {
 		if (!key) return;
@@ -46,7 +53,7 @@ const ShopPost = () => {
 			if (key.upArrow && selectedShopIndex > 0) {
 				setSelectedShopIndex(selectedShopIndex => selectedShopIndex - 1);
 			}
-			if (key.downArrow && selectedShopIndex < shopKakaoShops.length - 1) {
+			if (key.downArrow && selectedShopIndex < kakaoShops.length - 1) {
 				setSelectedShopIndex(selectedShopIndex => selectedShopIndex + 1);
 			}
 		}
@@ -97,58 +104,12 @@ const ShopPost = () => {
 			return;
 		}
 
-		// 시작 시간
-		if (inputStep == 2) {
-			if (key.tab || key.rightArrow) {
-				setTimeFocus((timeFocus + 1) % 2);
-			}
-			if (key.leftArrow) {
-				setTimeFocus((timeFocus - 1 + 2) % 2);
-			}
-			if (key.upArrow) {
-				if (timeFocus == 0) {
-					// hour
-					setOpenTimeHour((openTimeHour + 1) % 24);
-				} else {
-					// minute
-					setOpenTimeMinute((openTimeMinute + 15) % 60);
-				}
-			}
-			if (key.downArrow) {
-				if (timeFocus == 0) {
-					// hour
-					setOpenTimeHour((openTimeHour - 1 + 24) % 24);
-				} else {
-					// minute
-					setOpenTimeMinute((openTimeMinute - 15 + 60) % 60);
-				}
-			}
-		}
-		// 종료 시간
-		if (inputStep == 3) {
-			if (key.tab || key.rightArrow) {
-				setTimeFocus((timeFocus + 1) % 2);
-			}
-			if (key.leftArrow) {
-				setTimeFocus((timeFocus - 1 + 2) % 2);
-			}
-			if (key.upArrow) {
-				if (timeFocus == 0) {
-					// hour
-					setCloseTimeHour((closeTimeHour + 1) % 24);
-				} else {
-					// minute
-					setCloseTimeMinute((closeTimeMinute + 15) % 60);
-				}
-			}
-			if (key.downArrow) {
-				if (timeFocus == 0) {
-					// hour
-					setCloseTimeHour((closeTimeHour - 1 + 24) % 24);
-				} else {
-					// minute
-					setCloseTimeMinute((closeTimeMinute - 15 + 60) % 60);
-				}
+		// 2,3 (오픈, 마감 시간)은 입력으로 해결
+		// 따라서 내부 로직은 없음
+
+		if (inputStep == 4) {
+			if (key.return) {
+				addMenu();
 			}
 		}
 
@@ -157,7 +118,7 @@ const ShopPost = () => {
 			if (key.return) {
 				if (
 					inputStep == 0 &&
-					shopKakaoShops[selectedShopIndex].place_name == undefined
+					kakaoShops[selectedShopIndex].place_name == undefined
 				) {
 					return;
 				}
@@ -173,20 +134,33 @@ const ShopPost = () => {
 		}
 	});
 
-	const debouncedSearch = async () => {
+	// 메뉴 추가
+	const addMenu = () => {
+		setMenuList([...menuList, {name: menuName, price: menuPrice}]);
+		setMenuName(''); // 입력 필드 초기화
+		setMenuPrice(0); // 입력 필드 초기화
+	};
+
+	// 메뉴 삭제
+	const deleteMenu = index => {
+		const newMenuList = [...menuList];
+		newMenuList.splice(index, 1);
+		setMenuList(newMenuList);
+	};
+
+	const searchKakaoShops = async () => {
 		if (!shopTitle.length) {
-			setShopKakaoShops([]);
+			setKakaoShops([]);
 			return;
 		}
 		const response = await fetchKakaoShops(shopTitle);
-		setShopKakaoShops(response.data['documents']);
+		setKakaoShops(response.data['documents']);
 		setSelectedShopIndex(0);
 	};
 
 	React.useEffect(() => {
-		debouncedSearch();
+		searchKakaoShops();
 	}, [shopTitle]);
-
 	return (
 		<>
 			<Box flexDirection="column">
@@ -199,7 +173,7 @@ const ShopPost = () => {
 					)}
 				</Box>
 				<Box flexDirection="column">
-					{shopKakaoShops.map((shop, index) => (
+					{kakaoShops.map((shop, index) => (
 						<Text
 							key={index}
 							color={index === selectedShopIndex ? 'green' : 'white'}
@@ -212,7 +186,7 @@ const ShopPost = () => {
 				{inputStep > 0 && (
 					<Box flexDirection="column">
 						<Text>
-							location : {shopKakaoShops[selectedShopIndex].address_name}{' '}
+							location : {kakaoShops[selectedShopIndex].address_name}{' '}
 							<Newline />
 						</Text>
 						<Box>
@@ -225,6 +199,7 @@ const ShopPost = () => {
 											index === openDayIndex,
 											openDayList.includes(dayList[index]),
 											day,
+											index,
 										),
 									)}
 									<Text>
@@ -251,13 +226,24 @@ const ShopPost = () => {
 						<Text>openTime : </Text>
 						{inputStep == 2 ? (
 							<Text>
-								<Text color={timeFocus == 0 ? 'yellow' : 'white'}>
-									{openTimeHour.toString().padStart(2, '0')}
-								</Text>
-								:
-								<Text color={timeFocus == 1 ? 'yellow' : 'white'}>
-									{openTimeMinute.toString().padStart(2, '0')}
-								</Text>
+								<TextInput
+									value={openTime}
+									onChange={value => {
+										if (value.length <= 4) {
+											setOpenTime(value);
+											if (value.length === 4) {
+												const hour = parseInt(value.substring(0, 2));
+												const minute = parseInt(value.substring(2, 4));
+												if (hour < 24 && minute < 60) {
+													setOpenTimeHour(hour);
+													setOpenTimeMinute(minute);
+												} else {
+													setOpenTime('0000');
+												}
+											}
+										}
+									}}
+								/>
 							</Text>
 						) : (
 							<Text>
@@ -274,13 +260,24 @@ const ShopPost = () => {
 						<Text>closeTime : </Text>
 						{inputStep == 3 ? (
 							<Text>
-								<Text color={timeFocus == 0 ? 'yellow' : 'white'}>
-									{closeTimeHour.toString().padStart(2, '0')}
-								</Text>
-								:
-								<Text color={timeFocus == 1 ? 'yellow' : 'white'}>
-									{closeTimeMinute.toString().padStart(2, '0')}
-								</Text>
+								<TextInput
+									value={closeTime}
+									onChange={value => {
+										if (value.length <= 4) {
+											setCloseTime(value);
+											if (value.length === 4) {
+												const hour = parseInt(value.substring(0, 2));
+												const minute = parseInt(value.substring(2, 4));
+												if (hour < 24 && minute < 60) {
+													setCloseTimeHour(hour);
+													setCloseTimeMinute(minute);
+												} else {
+													setCloseTime('0000');
+												}
+											}
+										}
+									}}
+								/>
 							</Text>
 						) : (
 							<Text>
