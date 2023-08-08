@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Box, Text} from 'ink';
+import {Box, Text, Newline} from 'ink';
 import Login from './Login.js';
-import Search from './Search.js';
 import Intro from './component/intro.js';
 import SelectUserInfo from './SelectUserInfo.js';
 import Register from './Register.js';
+import Container from './Container.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
@@ -38,7 +38,9 @@ const App = () => {
 						''
 					)
 				) : (
-					<Search setShow={setShow} />
+					<Box flexDirection="column">
+						<Container />
+					</Box>
 				)}
 			</Box>
 		</>
