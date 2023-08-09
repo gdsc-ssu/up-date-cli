@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Text, Box, useInput, Newline} from 'ink';
+import {Text, Box, useInput, Newline, Spacer} from 'ink';
 import TextInput from 'ink-text-input';
-import {debounce} from '../common/input.js';
 import {fetchKakaoShops} from '../api/kakao.js';
+import { set } from 'mobx';
 
 const dayContainer = (isFocused, isSelected, day, key) => {
 	var color = 'white';
@@ -21,6 +21,20 @@ const dayContainer = (isFocused, isSelected, day, key) => {
 	);
 };
 
+const editContainer = (isFocused, text, key) => {
+	var color = 'white';
+
+	if (isFocused) {
+		color = 'yellow';
+	}
+
+	return (
+		<Box key={key}>
+			<Text color={color}>{text} </Text>
+		</Box>
+	);
+};
+
 const ShopPost = () => {
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
 	const [shopTitle, setShopTitle] = useState('');
@@ -31,20 +45,22 @@ const ShopPost = () => {
 	const [openDayIndex, setOpenDayIndex] = useState(0); // 추가: 오픈 요일 인덱스
 	const dayList = ['월', '화', '수', '목', '금', '토', '일', '']; // 요일 리스트
 
-	const [openTime, setOpenTime] = useState('');
 	const [openTimeHour, setOpenTimeHour] = useState(0);
 	const [openTimeMinute, setOpenTimeMinute] = useState(0);
 
-	const [closeTime, setCloseTime] = useState('');
 	const [closeTimeHour, setCloseTimeHour] = useState(0);
 	const [closeTimeMinute, setCloseTimeMinute] = useState(0);
 
-	const [timeFocus, setTimeFocus] = useState(0); // 0 for hour, 1 for minute
+	const [focus, setFocus] = useState(0); // 0 for hour, 1 for minute
 
 	// menu
 	const [menuList, setMenuList] = useState([]);
 	const [menuName, setMenuName] = useState('');
 	const [menuPrice, setMenuPrice] = useState(0);
+
+	const [confirmCommand, setConfirmCommand] = useState(''); // 입력 확인
+	const [isEdit, setIsEdit] = useState(false); // 입력 수정
+	const editList = ['title', 'openDay', 'openTime', 'closeTime', 'menu', '']; // 수정 가능한 목록
 
 	useInput((input, key) => {
 		if (!key) return;
@@ -104,14 +120,100 @@ const ShopPost = () => {
 			return;
 		}
 
-		// 2,3 (오픈, 마감 시간)은 입력으로 해결
-		// 따라서 내부 로직은 없음
+		// 시작 시간
+		if (inputStep == 2) {
+			if (key.tab || key.rightArrow) {
+				setFocus((focus + 1) % 2);
+			}
+			if (key.leftArrow) {
+				setFocus((focus - 1 + 2) % 2);
+			}
+			if (key.upArrow) {
+				if (focus == 0) {
+					// hour
+					setOpenTimeHour((openTimeHour + 1) % 24);
+				} else {
+					// minute
+					setOpenTimeMinute((openTimeMinute + 15) % 60);
+				}
+			}
+			if (key.downArrow) {
+				if (focus == 0) {
+					// hour
+					setOpenTimeHour((openTimeHour - 1 + 24) % 24);
+				} else {
+					// minute
+					setOpenTimeMinute((openTimeMinute - 15 + 60) % 60);
+				}
+			}
+		}
+		// 종료 시간
+		if (inputStep == 3) {
+			if (key.tab || key.rightArrow) {
+				setFocus((focus + 1) % 2);
+			}
+			if (key.leftArrow) {
+				setFocus((focus - 1 + 2) % 2);
+			}
+			if (key.upArrow) {
+				if (focus == 0) {
+					// hour
+					setCloseTimeHour((closeTimeHour + 1) % 24);
+				} else {
+					// minute
+					setCloseTimeMinute((closeTimeMinute + 15) % 60);
+				}
+			}
+			if (key.downArrow) {
+				if (focus == 0) {
+					// hour
+					setCloseTimeHour((closeTimeHour - 1 + 24) % 24);
+				} else {
+					// minute
+					setCloseTimeMinute((closeTimeMinute - 15 + 60) % 60);
+				}
+			}
+		}
 
 		if (inputStep == 4) {
+			if (key.tab) {
+				setFocus((focus + 1) % 2);
+			}
+
 			if (key.return) {
+				if (menuName.length == 0 || menuPrice == 0) {
+					setInputStep(prevInputStep => prevInputStep + 1);
+				}
 				addMenu();
 			}
 		}
+
+		// 입력 확인
+		// 수정 할 때, 숫자로 입력 수정 위치 변경
+		if (inputStep == 5) {
+			if(isEdit) {
+				if (key.tab) {
+					setFocus((focus + 1) % 5);
+				}
+
+				if (key.return) {
+					if (focus == 0) {
+						setInputStep(1);
+					} else if (focus == 1) {
+						setInputStep(2);
+					} else if (focus == 2) {
+						setInputStep(3);
+					} else if (focus == 3) {
+						setInputStep(4);
+					} else if (focus == 4) {
+						setInputStep(5);
+					}
+
+					setIsEdit(false);
+				}
+			}
+		}
+				
 
 		// 카카오 가게 데이터가 받아오기 전에 엔터 누르면 오류 발생
 		try {
@@ -124,6 +226,7 @@ const ShopPost = () => {
 				}
 
 				setInputStep(prevInputStep => prevInputStep + 1);
+				setFocus(0);
 
 				if (inputStep == 4) {
 					console.log('complete');
@@ -161,15 +264,16 @@ const ShopPost = () => {
 	React.useEffect(() => {
 		searchKakaoShops();
 	}, [shopTitle]);
+
 	return (
 		<>
-			<Box flexDirection="column">
+			<Box flexDirection="column" marginLeft={2}>
 				<Box>
-					<Text>title : </Text>
+					<Text>"title" : </Text>
 					{inputStep == 0 ? (
 						<TextInput value={shopTitle} onChange={setShopTitle} />
 					) : (
-						<Text>{shopTitle}</Text>
+						<Text>"{shopTitle}"</Text>
 					)}
 				</Box>
 				<Box flexDirection="column">
@@ -183,14 +287,14 @@ const ShopPost = () => {
 						</Text>
 					))}
 				</Box>
+
 				{inputStep > 0 && (
 					<Box flexDirection="column">
 						<Text>
-							location : {kakaoShops[selectedShopIndex].address_name}{' '}
-							<Newline />
+							"location" : "{kakaoShops[selectedShopIndex].address_name}"
 						</Text>
 						<Box>
-							<Text>openDay : </Text>
+							<Text>"openDay" : </Text>
 							{inputStep == 1 ? (
 								<Box>
 									{dayList.map((day, index) =>
@@ -214,7 +318,7 @@ const ShopPost = () => {
 									</Text>
 								</Box>
 							) : (
-								<Text>{openDayList.join(', ')}</Text>
+								<Text>"{openDayList.join(', ')}"</Text>
 							)}
 						</Box>
 					</Box>
@@ -223,32 +327,21 @@ const ShopPost = () => {
 				{/* 오픈 시간 */}
 				{inputStep > 1 && (
 					<Box>
-						<Text>openTime : </Text>
+						<Text>"openTime" : </Text>
 						{inputStep == 2 ? (
 							<Text>
-								<TextInput
-									value={openTime}
-									onChange={value => {
-										if (value.length <= 4) {
-											setOpenTime(value);
-											if (value.length === 4) {
-												const hour = parseInt(value.substring(0, 2));
-												const minute = parseInt(value.substring(2, 4));
-												if (hour < 24 && minute < 60) {
-													setOpenTimeHour(hour);
-													setOpenTimeMinute(minute);
-												} else {
-													setOpenTime('0000');
-												}
-											}
-										}
-									}}
-								/>
+								"<Text color={focus == 0 ? 'yellow' : 'white'}>
+									{openTimeHour.toString().padStart(2, '0')}
+								</Text>
+								:
+								<Text color={focus == 1 ? 'yellow' : 'white'}>
+									{openTimeMinute.toString().padStart(2, '0')}
+								</Text>"
 							</Text>
 						) : (
 							<Text>
-								{openTimeHour.toString().padStart(2, '0')}:
-								{openTimeMinute.toString().padStart(2, '0')}
+								"{openTimeHour.toString().padStart(2, '0')}:
+								{openTimeMinute.toString().padStart(2, '0')}"
 							</Text>
 						)}
 					</Box>
@@ -257,34 +350,110 @@ const ShopPost = () => {
 				{/* 마감 시간 */}
 				{inputStep > 2 && (
 					<Box>
-						<Text>closeTime : </Text>
+						<Text>"closeTime" : </Text>
 						{inputStep == 3 ? (
 							<Text>
-								<TextInput
-									value={closeTime}
-									onChange={value => {
-										if (value.length <= 4) {
-											setCloseTime(value);
-											if (value.length === 4) {
-												const hour = parseInt(value.substring(0, 2));
-												const minute = parseInt(value.substring(2, 4));
-												if (hour < 24 && minute < 60) {
-													setCloseTimeHour(hour);
-													setCloseTimeMinute(minute);
-												} else {
-													setCloseTime('0000');
-												}
-											}
-										}
-									}}
-								/>
+								"<Text color={focus == 0 ? 'yellow' : 'white'}>
+									{closeTimeHour.toString().padStart(2, '0')}
+								</Text>
+								:
+								<Text color={focus == 1 ? 'yellow' : 'white'}>
+									{closeTimeMinute.toString().padStart(2, '0')}
+								</Text>"
 							</Text>
 						) : (
 							<Text>
-								{closeTimeHour.toString().padStart(2, '0')}:
-								{closeTimeMinute.toString().padStart(2, '0')}
+								"{closeTimeHour.toString().padStart(2, '0')}:
+								{closeTimeMinute.toString().padStart(2, '0')}"
 							</Text>
 						)}
+					</Box>
+				)}
+
+				{/* 메뉴 */}
+				{inputStep > 3 && (
+					<Box flexDirection="column">
+						<Box>
+							<Text>"menu" : </Text>
+							{inputStep == 4 ? (
+								<Box>
+									<Text>name : </Text>
+									<TextInput
+										value={menuName}
+										onChange={setMenuName}
+										focus={focus == 0}
+									/>
+									<Text>price : </Text>
+									<TextInput
+										value={menuPrice.toString()}
+										onChange={value => setMenuPrice(parseInt(value))}
+										focus={focus == 1}
+									/>
+								</Box>
+							) : (
+								menuList.map((menu, index) => (
+									<Box key={index}>
+										<Text>
+											{menu.name} {menu.price}원{' '}
+										</Text>
+										<Text color="red" onClick={() => deleteMenu(index)}>
+											삭제
+										</Text>
+									</Box>
+								))
+							)}
+						</Box>
+					</Box>
+				)}
+
+				{/* 입력 확인 */}
+				{inputStep > 4 && (
+					<Box flexDirection="column">
+						<Text>Commands</Text>
+							<Box>
+							<Text color={"yellow"}>:wq - save and quit</Text>
+								<Spacer/>
+							<Text color={"green"}>:q! - force quit</Text>
+							<Spacer/>
+							<Text color={"blue"}>:e - edit input </Text>
+							</Box>
+							
+						<TextInput
+							value={confirmCommand}
+							onChange={setConfirmCommand}
+							focus={!isEdit}
+							onSubmit={() => {
+								if (confirmCommand == ":wq") {
+									//TODO : 저장하고 종료
+									process.exit(0);
+								} else if (confirmCommand == ":q!") {
+									//TODO : 저장하지 않고 종료
+									setConfirmCommand("");
+								} else if(confirmCommand == ":e") {
+									//TODO : 입력 수정
+									setIsEdit(true);
+								}
+							}}
+						/>
+
+						{isEdit && (
+							<Box >
+								{editList.map((edit, index) => (
+									editContainer(index === focus, edit, index)
+								))}
+								<Text>
+										<Newline />
+										<Text
+											color={
+												focus == editList.length - 1 ? 'yellow' : 'white'
+											}
+										>
+											{' 완료'}
+										</Text>
+									</Text>
+								</Box>
+						)}
+
 					</Box>
 				)}
 			</Box>
