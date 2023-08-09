@@ -12,22 +12,27 @@ const ShopDetail = ({data}) => {
 			<Box marginLeft={2}>
 				<Text>
 					<Text>
-						id : {data.id},<Newline />
+						"id" : "{data.id}",
+						<Newline />
 					</Text>
 					<Text>
-						title : {data.title},<Newline />
+						"title" : "{data.title}",
+						<Newline />
 					</Text>
 					<Text marginLeft={2}>
-						location : {data.location},<Newline />
+						"location" : "{data.location}",
+						<Newline />
 					</Text>
 					<Text>
-						nearStation : {data.nearStation},<Newline />
+						"nearStation" : "{data.nearStation}",
+						<Newline />
 					</Text>
 					<Text>
-						openTime : {data.openTime} ~ {data.closeTime},<Newline />
+						"openTime" : "{data.openTime}" - "{data.closeTime}",
+						<Newline />
 					</Text>
 					<Text>
-						menu : {'['}
+						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
 							<Text key={item.name}>
@@ -41,16 +46,16 @@ const ShopDetail = ({data}) => {
 						<Newline />
 					</Text>
 					<Text>
-						starRate : {starRateString}({data.starRate}),
+						"starRate" : "{starRateString}({data.starRate})",
 						<Newline />
 					</Text>
 					<Text>
-						reviews : {'['}
+						"reviews" : {'['}
 						<Newline />
 						{data.reviews.map((item, index, array) => (
 							<Text key={item.id}>
 								{' '}
-								{'{'} "{item.writer}" : {item.content} ({item.starRate}) {'}'}
+								{'{'} "{item.writer}" : "{item.content} ({item.starRate})" {'}'}
 								{index !== array.length - 1 ? ',' : ''}
 								<Newline />
 							</Text>
