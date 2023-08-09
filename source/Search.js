@@ -4,9 +4,8 @@ import TextInput from 'ink-text-input';
 import {TypeMoive} from './api.js';
 import data from './examples/location.js';
 
-const Search = ({setlist}) => {
+const Search = ({setlist, setStation}) => {
 	const [search, setSearch] = useState('');
-
 	useInput((input, key) => {
 		if (!key) return;
 
@@ -15,10 +14,14 @@ const Search = ({setlist}) => {
 				setlist(list => [...list, [data.location, search]]);
 				setSearch('');
 			}
+			if (search.includes('cd ')) {
+				let station = search.slice(3, search.length);
+				setStation(station);
+				setSearch('');
+			}
 			if (search === 'popular' || search === 'upcoming') {
 				TypeMoive(search)
 					.then(response => {
-						console.log(response.data.results.slice(0, 4));
 						setlist(list => [
 							...list,
 							[response.data.results.slice(0, 4), search],
