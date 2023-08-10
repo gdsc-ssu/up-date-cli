@@ -14,9 +14,6 @@ const App = () => {
 	const [isSelected, setIsSelected] = useState(true);
 	const [Id, setId] = useState('');
 
-	return ( 
-		<ShopDetail />
-	);
 	// 지금까지 나왔던 로그들을 저장하는 배열
 	const [logs, setLogs] = useState([]);
 
