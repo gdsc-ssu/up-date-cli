@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Text, Box, useInput, Newline, Spacer} from 'ink';
 import TextInput from 'ink-text-input';
 import {fetchKakaoShops} from '../api/kakao.js';
-import { set } from 'mobx';
 
 const dayContainer = (isFocused, isSelected, day, key) => {
 	var color = 'white';
@@ -36,6 +35,8 @@ const editContainer = (isFocused, text, key) => {
 };
 
 const ShopPost = () => {
+	const [lastKeyPress, setLastKeyPress] = useState(null);
+
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
 	const [shopTitle, setShopTitle] = useState('');
 	const [kakaoShops, setKakaoShops] = useState([]);
@@ -64,6 +65,7 @@ const ShopPost = () => {
 
 	useInput((input, key) => {
 		if (!key) return;
+		setLastKeyPress(key.name);
 
 		if (inputStep == 0) {
 			if (key.upArrow && selectedShopIndex > 0) {
@@ -176,44 +178,53 @@ const ShopPost = () => {
 		}
 
 		if (inputStep == 4) {
-			if (key.tab) {
+			if (key.tab || key.rightArrow) {
 				setFocus((focus + 1) % 2);
+			}
+			if (key.leftArrow) {
+				setFocus((focus - 1 + 2) % 2);
 			}
 
 			if (key.return) {
-				if (menuName.length == 0 || menuPrice == 0) {
+				if (
+					lastKeyPress === 'return' ||
+					menuName.length == 0 ||
+					menuPrice == 0
+				) {
 					setInputStep(prevInputStep => prevInputStep + 1);
+					setLastKeyPress(null); // reset the last key press
+					return;
+				} else {
+					addMenu();
+					return;
 				}
-				addMenu();
 			}
 		}
 
-		// 입력 확인
+		// step 5는 입력 확인
+
 		// 수정 할 때, 숫자로 입력 수정 위치 변경
-		if (inputStep == 5) {
-			if(isEdit) {
-				if (key.tab) {
-					setFocus((focus + 1) % 5);
+		if (inputStep >= 6) {
+			if (isEdit) {
+				if (key.tab || key.rightArrow) {
+					setFocus((focus + 1) % 6);
+				}
+				if (key.leftArrow) {
+					setFocus((focus - 1 + 6) % 6);
 				}
 
 				if (key.return) {
-					if (focus == 0) {
-						setInputStep(1);
-					} else if (focus == 1) {
-						setInputStep(2);
-					} else if (focus == 2) {
-						setInputStep(3);
-					} else if (focus == 3) {
-						setInputStep(4);
-					} else if (focus == 4) {
+					if (focus == 5) {
 						setInputStep(5);
+					} else {
+						setInputStep(focus - 1);
 					}
 
 					setIsEdit(false);
+					setFocus(0);
 				}
 			}
 		}
-				
 
 		// 카카오 가게 데이터가 받아오기 전에 엔터 누르면 오류 발생
 		try {
@@ -242,6 +253,7 @@ const ShopPost = () => {
 		setMenuList([...menuList, {name: menuName, price: menuPrice}]);
 		setMenuName(''); // 입력 필드 초기화
 		setMenuPrice(0); // 입력 필드 초기화
+		setFocus(0); // 포커스 초기화
 	};
 
 	// 메뉴 삭제
@@ -267,6 +279,7 @@ const ShopPost = () => {
 
 	return (
 		<>
+			<Text>{'{'}</Text>
 			<Box flexDirection="column" marginLeft={2}>
 				<Box>
 					<Text>"title" : </Text>
@@ -306,15 +319,12 @@ const ShopPost = () => {
 											index,
 										),
 									)}
-									<Text>
-										<Newline />
-										<Text
-											color={
-												openDayIndex === dayList.length - 1 ? 'yellow' : 'white'
-											}
-										>
-											{' 완료'}
-										</Text>
+									<Text
+										color={
+											openDayIndex === dayList.length - 1 ? 'yellow' : 'white'
+										}
+									>
+										{' 완료'}
 									</Text>
 								</Box>
 							) : (
@@ -330,13 +340,15 @@ const ShopPost = () => {
 						<Text>"openTime" : </Text>
 						{inputStep == 2 ? (
 							<Text>
-								"<Text color={focus == 0 ? 'yellow' : 'white'}>
+								"
+								<Text color={focus == 0 ? 'yellow' : 'white'}>
 									{openTimeHour.toString().padStart(2, '0')}
 								</Text>
 								:
 								<Text color={focus == 1 ? 'yellow' : 'white'}>
 									{openTimeMinute.toString().padStart(2, '0')}
-								</Text>"
+								</Text>
+								"
 							</Text>
 						) : (
 							<Text>
@@ -353,13 +365,15 @@ const ShopPost = () => {
 						<Text>"closeTime" : </Text>
 						{inputStep == 3 ? (
 							<Text>
-								"<Text color={focus == 0 ? 'yellow' : 'white'}>
+								"
+								<Text color={focus == 0 ? 'yellow' : 'white'}>
 									{closeTimeHour.toString().padStart(2, '0')}
 								</Text>
 								:
 								<Text color={focus == 1 ? 'yellow' : 'white'}>
 									{closeTimeMinute.toString().padStart(2, '0')}
-								</Text>"
+								</Text>
+								"
 							</Text>
 						) : (
 							<Text>
@@ -373,90 +387,110 @@ const ShopPost = () => {
 				{/* 메뉴 */}
 				{inputStep > 3 && (
 					<Box flexDirection="column">
-						<Box>
-							<Text>"menu" : </Text>
-							{inputStep == 4 ? (
+						{/* <Box> */}
+						<Text>"menu" : {'['}</Text>
+						{inputStep == 4 ? (
+							<Box flexDirection="column" marginLeft={2}>
+								{menuList.map((menu, index) => (
+									<Box key={index}>
+										<Text>
+											{'{'}"menuName" : "{menu.name}", "menuPrice" :{' '}
+											{menu.price}
+											{index == menuList.length ? '}' : '},'}
+										</Text>
+									</Box>
+								))}
 								<Box>
-									<Text>name : </Text>
+									<Text>{'{'}"menuName" : "</Text>
 									<TextInput
 										value={menuName}
 										onChange={setMenuName}
 										focus={focus == 0}
 									/>
-									<Text>price : </Text>
+									<Text>", "menuPrice" : </Text>
 									<TextInput
 										value={menuPrice.toString()}
-										onChange={value => setMenuPrice(parseInt(value))}
+										onChange={value => setMenuPrice(parseInt(value) || 0)}
 										focus={focus == 1}
 									/>
+									<Text>{'}'}</Text>
 								</Box>
-							) : (
-								menuList.map((menu, index) => (
+							</Box>
+						) : (
+							<Box flexDirection="column" marginLeft={2}>
+								{menuList.map((menu, index) => (
 									<Box key={index}>
 										<Text>
-											{menu.name} {menu.price}원{' '}
-										</Text>
-										<Text color="red" onClick={() => deleteMenu(index)}>
-											삭제
+											{'{'}"menuName" : "{menu.name}", "menuPrice" :{' '}
+											{menu.price}
+											{index == menuList.length - 1 && menuList.length > 1
+												? '}'
+												: '},'}
 										</Text>
 									</Box>
-								))
-							)}
-						</Box>
+								))}
+							</Box>
+						)}
+						{/* </Box> */}
+						<Text>{']'}</Text>
 					</Box>
 				)}
+			</Box>
+			<Text>{'}'}</Text>
 
-				{/* 입력 확인 */}
-				{inputStep > 4 && (
-					<Box flexDirection="column">
-						<Text>Commands</Text>
-							<Box>
-							<Text color={"yellow"}>:wq - save and quit</Text>
-								<Spacer/>
-							<Text color={"green"}>:q! - force quit</Text>
-							<Spacer/>
-							<Text color={"blue"}>:e - edit input </Text>
-							</Box>
-							
+			{/* 입력 확인 */}
+			{inputStep > 4 && (
+				<Box flexDirection="column">
+					<Spacer />
+					<Text color={'red'}>
+						<Newline />
+						Commands
+					</Text>
+					<Box>
+						<Text color={'yellow'}>:wq - save and quit</Text>
+						<Spacer />
+						<Text color={'green'}>:q! - force quit</Text>
+						<Spacer />
+						<Text color={'blue'}>:e - edit input </Text>
+					</Box>
+
+					{!isEdit ? (
 						<TextInput
 							value={confirmCommand}
 							onChange={setConfirmCommand}
 							focus={!isEdit}
 							onSubmit={() => {
-								if (confirmCommand == ":wq") {
+								if (confirmCommand == ':wq') {
 									//TODO : 저장하고 종료
 									process.exit(0);
-								} else if (confirmCommand == ":q!") {
+								} else if (confirmCommand == ':q!') {
 									//TODO : 저장하지 않고 종료
-									setConfirmCommand("");
-								} else if(confirmCommand == ":e") {
+									setConfirmCommand('');
+								} else if (confirmCommand == ':e') {
 									//TODO : 입력 수정
 									setIsEdit(true);
+									console.log(inputStep);
+								} else {
+									setConfirmCommand('');
 								}
 							}}
 						/>
+					) : (
+						<Text>{confirmCommand}</Text>
+					)}
 
-						{isEdit && (
-							<Box >
-								{editList.map((edit, index) => (
-									editContainer(index === focus, edit, index)
-								))}
-								<Text>
-										<Newline />
-										<Text
-											color={
-												focus == editList.length - 1 ? 'yellow' : 'white'
-											}
-										>
-											{' 완료'}
-										</Text>
-									</Text>
-								</Box>
-						)}
-
-					</Box>
-				)}
-			</Box>
+					{isEdit && (
+						<Box>
+							{editList.map((edit, index) =>
+								editContainer(index === focus, edit, index),
+							)}
+							<Text color={focus === editList.length - 1 ? 'yellow' : 'white'}>
+								{'취소'} {inputStep}
+							</Text>
+						</Box>
+					)}
+				</Box>
+			)}
 		</>
 	);
 };
