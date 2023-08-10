@@ -387,7 +387,6 @@ const ShopPost = () => {
 				{/* 메뉴 */}
 				{inputStep > 3 && (
 					<Box flexDirection="column">
-						{/* <Box> */}
 						<Text>"menu" : {'['}</Text>
 						{inputStep == 4 ? (
 							<Box flexDirection="column" marginLeft={2}>
@@ -431,7 +430,6 @@ const ShopPost = () => {
 								))}
 							</Box>
 						)}
-						{/* </Box> */}
 						<Text>{']'}</Text>
 					</Box>
 				)}
@@ -485,7 +483,7 @@ const ShopPost = () => {
 								editContainer(index === focus, edit, index),
 							)}
 							<Text color={focus === editList.length - 1 ? 'yellow' : 'white'}>
-								{'취소'} {inputStep}
+								{'취소'}
 							</Text>
 						</Box>
 					)}
