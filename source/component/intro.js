@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, Newline } from 'ink';
+import theme from "../Theme.js"
 
 const Intro = () => {
     return ( 
-			<Text color="#00FF19">
+			<Text color={theme.neonGreen}>
 			<Text>   __  __                __      __          ____  ____  ____      ____________________<Newline/></Text>
 			<Text>  / / / /___        ____/ /___ _/ /____     / __ \/ __ \/ __ \    / / ____/ ____/_  __/<Newline/></Text>
 			<Text> / / / / __ \______/ __  / __ `/ __/ _ \   / /_/ / /_/ / / / /_  / / __/ / /     / /   <Newline/></Text>

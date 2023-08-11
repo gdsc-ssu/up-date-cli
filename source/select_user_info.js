@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput} from 'ink';
+import theme from './Theme.js';
 
 const SelectUserInfo = ({isSelected, setIsSelected, setSpaceStep}) => {
 	useInput((input, key) => {
@@ -24,20 +25,20 @@ const SelectUserInfo = ({isSelected, setIsSelected, setSpaceStep}) => {
 
 	return (
 		<Box flexDirection="column">
-			<Text color="#00FF19">Select Menu</Text>
+			<Text color={theme.neonGreen}>Select Menu</Text>
 			<Newline />
 			<Box width={18}>
 				<Box width="50%">
 					{isSelected ? (
-						<Text color="#FF0000">Login</Text>
+						<Text color={theme.red}>Login</Text>
 					) : (
-						<Text color="#00FF19">Login</Text>
+						<Text color={theme.neonGreen}>Login</Text>
 					)}
 				</Box>
 				{!isSelected ? (
-					<Text color="#FF0000">Register</Text>
+					<Text color={theme.red}>Register</Text>
 				) : (
-					<Text color="#00FF19">Register</Text>
+					<Text color={theme.neonGreen}>Register</Text>
 				)}
 			</Box>
 		</Box>

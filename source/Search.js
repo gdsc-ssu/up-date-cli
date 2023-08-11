@@ -3,6 +3,7 @@ import {Text, Box, useInput, Newline} from 'ink';
 import TextInput from 'ink-text-input';
 import {TypeMoive} from './api.js';
 import data from './examples/location.js';
+import theme from './Theme.js';
 
 const Search = ({setlist}) => {
 	const [search, setSearch] = useState('');
@@ -35,7 +36,7 @@ const Search = ({setlist}) => {
 	return (
 		<Box marginY={1} flexDirection="column">
 			<Box>
-				<Text color="#00FF19">$ </Text>
+				<Text color={theme.neonGreen}>$ </Text>
 				<TextInput value={search} onChange={setSearch} />
 			</Box>
 		</Box>
