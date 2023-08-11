@@ -4,7 +4,8 @@ import Login from './Login.js';
 import Intro from './component/intro.js';
 import SelectUserInfo from './SelectUserInfo.js';
 import Register from './Register.js';
-import Container from './Container.js';
+import SearchContainer from './SearchContainer.js';
+import theme from './Theme.js';
 
 const App = () => {
 	const [show, setShow] = useState(false);
@@ -17,7 +18,7 @@ const App = () => {
 			<Intro />
 			<Text>press "help" to see the list of commands</Text>
 			{show ? (
-				<Text color="white">Username : {Id}</Text>
+				<Text color={theme.white}>Username : {Id}</Text>
 			) : (
 				<SelectUserInfo
 					isSelected={isSelected}
@@ -39,7 +40,7 @@ const App = () => {
 					)
 				) : (
 					<Box flexDirection="column">
-						<Container />
+						<SearchContainer />
 					</Box>
 				)}
 			</Box>

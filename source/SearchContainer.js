@@ -4,7 +4,7 @@ import TextInput from 'ink-text-input';
 import Search from './Search.js';
 import Output from './Output.js';
 
-const Container = () => {
+const SearchContainer = () => {
 	const [list, setlist] = useState([]);
 	return (
 		<Box marginY={1} flexDirection="column">
@@ -14,4 +14,4 @@ const Container = () => {
 	);
 };
 
-export default Container;
+export default SearchContainer;
