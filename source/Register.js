@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
+import theme from './Theme.js';
 
 const Register = ({setIsSelected, setSpaceStep}) => {
 	const [nextStepInfo, setNextStepInfo] = useState(0);
@@ -15,7 +16,7 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 		if (key.return) {
 			if (nextStepInfo === 2) {
 				setSpaceStep('login');
-				setIsSelected(false);
+				setIsSelected(true);
 			}
 			setNextStepInfo(nextStepInfo + 1);
 		}
@@ -31,7 +32,7 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 	return (
 		<Box marginY={1} flexDirection="column">
 			<Box>
-				<Text color="red">NEW ID: </Text>
+				<Text color={theme.neonGreen}>NEW ID: </Text>
 				{nextStepInfo === 0 ? (
 					<TextInput value={Id} onChange={setId} />
 				) : (
@@ -41,12 +42,12 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			<Box>
 				{nextStepInfo === 1 ? (
 					<>
-						<Text color="red">NEW PASSWORD: </Text>
+						<Text color={theme.neonGreen}>NEW PASSWORD: </Text>
 						<TextInput value={Password} onChange={setPassword} />
 					</>
 				) : nextStepInfo === 2 ? (
 					<>
-						<Text color="red">NEW PASSWORD: </Text>
+						<Text color={theme.neonGreen}>NEW PASSWORD: </Text>
 						<Text> {Password}</Text>
 					</>
 				) : (
@@ -55,18 +56,18 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			</Box>
 			{nextStepInfo === 2 ? (
 				<Box>
-					<Text color="red">Do you have a girlfriend? (y/n): </Text>
+					<Text color={theme.neonGreen}>Do you have a girlfriend? (y/n): </Text>
 					<TextInput value={girlfriend} onChange={setGirlfriend} />
 				</Box>
 			) : (
 				<Text>{girlfriend}</Text>
 			)}
 			{openMessage === 'complete' ? (
-				<Text color="green">
+				<Text color={theme.red}>
 					Sign up is complete. (Please press space to login.)
 				</Text>
 			) : openMessage === 'fail' ? (
-				<Text color="red">Sign up is not possible.</Text>
+				<Text color={theme.red}>Sign up is not possible.</Text>
 			) : (
 				''
 			)}

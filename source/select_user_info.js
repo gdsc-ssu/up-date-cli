@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput} from 'ink';
+import theme from './Theme.js';
 
 const SelectUserInfo = ({isSelected, setIsSelected, setSpaceStep}) => {
 	useInput((input, key) => {
@@ -13,33 +14,33 @@ const SelectUserInfo = ({isSelected, setIsSelected, setSpaceStep}) => {
 
 		if (key.return) {
 			if (isSelected) {
-				// register 페이지로 이동
-				setSpaceStep('register');
-			} else {
 				// login 페이지로 이동
 				setSpaceStep('login');
+			} else {
+				// register 페이지로 이동
+				setSpaceStep('register');
 			}
 		}
 	});
 
 	return (
-		<Box width={23}>
-			<Box width="50%">
-				{isSelected ? (
-					<Text backgroundColor="red" color="white">
-						Register
-					</Text>
+		<Box flexDirection="column">
+			<Text color={theme.neonGreen}>Select Menu</Text>
+			<Newline />
+			<Box width={18}>
+				<Box width="50%">
+					{isSelected ? (
+						<Text color={theme.red}>Login</Text>
+					) : (
+						<Text color={theme.neonGreen}>Login</Text>
+					)}
+				</Box>
+				{!isSelected ? (
+					<Text color={theme.red}>Register</Text>
 				) : (
-					<Text color="red">Register</Text>
+					<Text color={theme.neonGreen}>Register</Text>
 				)}
 			</Box>
-			{!isSelected ? (
-				<Text backgroundColor="red" color="white">
-					Login
-				</Text>
-			) : (
-				<Text color="red">Login</Text>
-			)}
 		</Box>
 	);
 };
