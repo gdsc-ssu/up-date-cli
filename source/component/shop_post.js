@@ -33,8 +33,15 @@ const editContainer = (isFocused, text, key) => {
 		</Box>
 	);
 };
-
-const ShopPost = () => {
+/**
+ * @param {string} category
+ * @returns {void}
+ * @description
+ * 카테고리에 따라 카카오 API를 호출하여 가게 리스트를 가져온다.
+ * 카테고리는 cafe, restaurant로 구분된다.
+ * 이외의 카테고리나 넣지 않으면 모든 카테고리에서 검색한다.
+ */
+const ShopPost = ({category}) => {
 	const [lastKeyPress, setLastKeyPress] = useState(null);
 
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
