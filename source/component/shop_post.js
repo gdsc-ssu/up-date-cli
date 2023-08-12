@@ -275,7 +275,7 @@ const ShopPost = ({category}) => {
 			setKakaoShops([]);
 			return;
 		}
-		const response = await fetchKakaoShops(shopTitle);
+		const response = await fetchKakaoShops(shopTitle, category);
 		setKakaoShops(response.data['documents']);
 		setSelectedShopIndex(0);
 	};
