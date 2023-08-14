@@ -8,17 +8,16 @@ export const fetchKakaoShops = (query, category) => {
 
 	const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&size=3`;
 
-
-	if(category == "cafe") {
-		return axios.get(url+"&category_group_code=CE7", {
+	if (category == 'cafe') {
+		return axios.get(url + '&category_group_code=CE7', {
 			headers: {
 				Authorization: `KakaoAK ${API_KEY}`,
 			},
 		});
 	}
 
-	if(category == "restaurant") {
-		return axios.get(url+"&category_group_code=FD6", {
+	if (category == 'restaurant') {
+		return axios.get(url + '&category_group_code=FD6', {
 			headers: {
 				Authorization: `KakaoAK ${API_KEY}`,
 			},

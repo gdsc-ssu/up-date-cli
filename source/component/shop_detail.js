@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, Newline, Box} from 'ink';
 
 /**
- * 
+ *
  * @param {Object} data
  * @description
  * data = {
