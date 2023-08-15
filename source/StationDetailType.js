@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Text, Box, useInput, Newline} from 'ink';
+import shoplist from './examples/shoplist.js';
 
-const StationDetailType = ({station}) => {
+const StationDetailType = ({station, setlist, setStation}) => {
 	const [num, setNum] = useState(1);
 	const [type, setType] = useState('');
 
@@ -21,12 +22,20 @@ const StationDetailType = ({station}) => {
 		if (key.return) {
 			if (num === 1) {
 				setType('맛집');
+				setlist(list => [...list, [shoplist, `${station} 맛집`]]);
+				setStation('');
 			} else if (num === 2) {
 				setType('카페');
+				setlist(list => [...list, [shoplist, `${station} 카페`]]);
+				setStation('');
 			} else if (num === 3) {
 				setType('액티비티');
+				setlist(list => [...list, [shoplist, `${station} 액티비티`]]);
+				setStation('');
 			} else if (num === 4) {
 				setType('술집');
+				setlist(list => [...list, [shoplist, `${station} 술집`]]);
+				setStation('');
 			}
 		}
 	});
