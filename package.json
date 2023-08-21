@@ -1,13 +1,23 @@
 {
 	"name": "up-d4te",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Recommend Dating Course in Korea with CLI",
 	"author": {
 		"name": "Sanghyeon Sim",
 		"email": "simsanghyeon00@gmail.com"
 	},
 	"license": "MIT",
-	"bin": "dist/cli.js",
+	"bin": {
+		"up-date": "dist/cli.js"
+	},
+	"keywords": [
+		"update",
+		"up-date",
+		"up-d4te",
+		"dating",
+		"up-dating",
+		"date"
+	],
 	"type": "module",
 	"engines": {
 		"node": ">=16"
