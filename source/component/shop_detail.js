@@ -22,7 +22,24 @@ import {Text, Newline, Box} from 'ink';
  * 	reviews: [],
  * }
  */
-const ShopDetail = ({data}) => {
+const ShopDetail = ({Id, setId}) => {
+	const data = {
+		id: '1',
+		title: 'The 5th Wave',
+		location: '서울시 동작구 상도로 369',
+		nearStation: '상도역',
+		openTime: '09:00',
+		closeTime: '22:00',
+		menu: [
+			{
+				name: '카페라떼',
+				price: 4000,
+			},
+		],
+		starRate: 4.5,
+		reviews: [],
+	};
+
 	const starRateRounded = Math.round(data.starRate);
 
 	const starRateString = '⭐'.repeat(starRateRounded);
