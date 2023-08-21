@@ -3,7 +3,7 @@ import {Box} from 'ink';
 import Search from './Search.js';
 import Output from './Output.js';
 import StationDetailType from './StationDetailType.js';
-import ShopDetail from './component/shop_detail.js';
+import ShopDetail from './component/ShopDetail.js';
 
 const SearchContainer = () => {
 	const [list, setlist] = useState([]);
