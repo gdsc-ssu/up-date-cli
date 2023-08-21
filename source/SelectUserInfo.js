@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Text, Box, useInput} from 'ink';
+import React from 'react';
+import {Text, Box, useInput, Newline} from 'ink';
 import theme from './Theme.js';
 
 const SelectUserInfo = ({isSelected, setIsSelected, setSpaceStep}) => {

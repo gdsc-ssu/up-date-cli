@@ -1,6 +1,6 @@
 {
 	"name": "up-d4te",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "Recommend Dating Course in Korea with CLI",
 	"author": {
 		"name": "Sanghyeon Sim",
@@ -31,7 +31,7 @@
 		"format": "prettier --write ."
 	},
 	"files": [
-		"dist"
+		"dist/**/*"
 	],
 	"dependencies": {
 		"axios": "^1.4.0",

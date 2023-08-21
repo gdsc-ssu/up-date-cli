@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Text, Newline} from 'ink';
+import {Box, Text} from 'ink';
 import Login from './Login.js';
 import Intro from './component/intro.js';
 import SelectUserInfo from './SelectUserInfo.js';

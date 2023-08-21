@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Text, Box, useInput, Newline} from 'ink';
+import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
-import {TypeMoive} from './api.js';
+import {TypeMoive} from './api/movie.js';
 import data from './examples/location.js';
 import theme from './Theme.js';
 

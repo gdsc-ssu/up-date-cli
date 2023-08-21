@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, Box, useInput, Newline} from 'ink';
-import TextInput from 'ink-text-input';
+import {Text, Box, Newline} from 'ink';
 import theme from './Theme.js';
 import ListSubway from './component/ListSubway.js';
 import ListShop from './component/ListShop.js';

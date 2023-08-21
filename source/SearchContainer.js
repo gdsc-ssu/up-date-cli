@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Box, useInput, Newline} from 'ink';
-import TextInput from 'ink-text-input';
+import {Box} from 'ink';
 import Search from './Search.js';
 import Output from './Output.js';
 import StationDetailType from './StationDetailType.js';
