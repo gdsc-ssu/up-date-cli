@@ -41,11 +41,11 @@ const editContainer = (isFocused, text, key) => {
  * 카테고리는 cafe, restaurant로 구분된다.
  * 이외의 카테고리나 넣지 않으면 모든 카테고리에서 검색한다.
  */
-const ShopPost = ({category}) => {
+const ShopPost = ({category, storeName}) => {
 	const [lastKeyPress, setLastKeyPress] = useState(null);
 
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
-	const [shopTitle, setShopTitle] = useState('');
+	const [shopTitle, setShopTitle] = useState(storeName);
 	const [kakaoShops, setKakaoShops] = useState([]);
 	const [selectedShopIndex, setSelectedShopIndex] = useState(0);
 
