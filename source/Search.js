@@ -13,24 +13,34 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 			if (search === 'ls') {
 				setlist(list => [...list, [data.location, search]]);
 				setSearch('');
-			} else if (search.startsWith('cd ')) {
+				return;
+			}
+			if (search.startsWith('cd ')) {
 				let station = search.slice(3, search.length);
 				setlist(list => [...list, [[], search]]);
 				setStation(station);
 				setSearch('');
-			} else if (search.startsWith('vi ')) {
+				return;
+			}
+			if (search.startsWith('vi ')) {
 				let storeId = search.slice(3, search.length);
 				setlist(list => [...list, [[], search]]);
 				setId(storeId); // 지금은 임시로 Id값을 저장하지만, 나중에 서버 구축이 되면, 여기서 api call 해서 가게 상세정보를 state값에 저장한다.
 				setSearch('');
-			} else if (search === 'mkdir') {
+				return;
+			}
+			if (search === 'mkdir') {
 				setlist(list => [...list, [[], search]]);
 				setStoreName(search);
 				setSearch('');
-			} else {
-				setlist(list => [...list, [['command not found'], search]]);
-				setSearch('');
+				return;
 			}
+				setSearch('');
+			if (search === 'exit') {
+				process.exit(0);
+			}
+			setlist(list => [...list, [['command not found'], search]]);
+			setSearch('');
 		}
 	});
 
