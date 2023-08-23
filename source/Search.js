@@ -6,6 +6,7 @@ import theme from './Theme.js';
 
 const Search = ({setlist, setStation, setId, setStoreName}) => {
 	const [search, setSearch] = useState('');
+	const [isHelpOn, setIsHelpOn] = useState(false);
 	useInput((input, key) => {
 		if (!key) return;
 
@@ -35,7 +36,11 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 				setSearch('');
 				return;
 			}
+			if (search === 'help') {
+				setIsHelpOn(isHelpOn => !isHelpOn);
 				setSearch('');
+				return;
+			}
 			if (search === 'exit') {
 				process.exit(0);
 			}
@@ -46,6 +51,16 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 
 	return (
 		<Box marginY={1} flexDirection="column">
+			{isHelpOn && (
+				<Box flexDirection="column">
+					<Text color={theme.commandFirst}>vi {'${shop_id}'} - 가게 찾기</Text>
+					<Text color={theme.commandSecond}>
+						cd {'${station_name}'} - 정류장 선택
+					</Text>
+					<Text color={theme.commandThird}>ls - 리스트 보기</Text>
+					<Text color={theme.commandFourth}>exit - 종료</Text>
+				</Box>
+			)}
 			<Box>
 				<Text color={theme.neonGreen}>$ </Text>
 				<TextInput value={search} onChange={setSearch} />
