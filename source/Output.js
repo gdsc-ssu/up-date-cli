@@ -7,15 +7,20 @@ import ListShop from './component/ListShop.js';
 
 // [[[{},{}],'맛집']]
 const Output = ({list}) => {
+	const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 	return (
 		<Box marginY={1} flexDirection="column">
 			{list.map(item => (
 				<>
 					<Text color={theme.purple}>$ {item[1]} </Text>
 					<Newline />
-					{item[1] === 'ls'
-						? item[0].map((data, key) => <ListSubway data={data} key={key} />)
-						: item[0].map((data, key) => <ListShop data={data} key={key} />)}
+					{item[1] === 'ls' ? (
+						item[0].map((data, key) => <ListSubway data={data} key={key} />)
+					) : check.test(item[1]) ? (
+						item[0].map((data, key) => <ListShop data={data} key={key} />)
+					) : (
+						<Text color={theme.red}>{item[0][0]}</Text>
+					)}
 				</>
 			))}
 		</Box>

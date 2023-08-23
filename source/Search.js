@@ -5,7 +5,7 @@ import {TypeMoive} from './api/movie.js';
 import data from './examples/location.js';
 import theme from './Theme.js';
 
-const Search = ({setlist, setStation, setId}) => {
+const Search = ({setlist, setStation, setId, setStoreName}) => {
 	const [search, setSearch] = useState('');
 	useInput((input, key) => {
 		if (!key) return;
@@ -14,28 +14,22 @@ const Search = ({setlist, setStation, setId}) => {
 			if (search === 'ls') {
 				setlist(list => [...list, [data.location, search]]);
 				setSearch('');
-			}
-			if (search.includes('cd ')) {
+			} else if (search.startsWith('cd ')) {
 				let station = search.slice(3, search.length);
+				setlist(list => [...list, [[], search]]);
 				setStation(station);
 				setSearch('');
-			}
-			if (search.includes('vi ')) {
+			} else if (search.startsWith('vi ')) {
 				let storeId = search.slice(3, search.length);
+				setlist(list => [...list, [[], search]]);
 				setId(storeId); // 지금은 임시로 Id값을 저장하지만, 나중에 서버 구축이 되면, 여기서 api call 해서 가게 상세정보를 state값에 저장한다.
 				setSearch('');
-			}
-			if (search === 'popular' || search === 'upcoming') {
-				TypeMoive(search)
-					.then(response => {
-						setlist(list => [
-							...list,
-							[response.data.results.slice(0, 4), search],
-						]);
-					})
-					.catch(error => {
-						console.error(error);
-					});
+			} else if (search === 'mkdir') {
+				setlist(list => [...list, [[], search]]);
+				setStoreName(search);
+				setSearch('');
+			} else {
+				setlist(list => [...list, [['command not found'], search]]);
 				setSearch('');
 			}
 		}
