@@ -2,15 +2,13 @@ import React from 'react';
 import {Text, Box, Newline} from 'ink';
 import theme from '../Theme.js';
 
-const ListSubway = ({data, key}) => {
+const ListSubway = ({data}) => {
 	return (
-		<React.Fragment key={key}>
+		<>
 			<Text bold color={theme.neonGreen}>
 				{data}
-				{/* {data || data.original_title} */}
 			</Text>
-			<Newline />
-		</React.Fragment>
+		</>
 	);
 };
 

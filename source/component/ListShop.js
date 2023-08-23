@@ -5,6 +5,7 @@ import TextInput from 'ink-text-input';
 import EachShop from './EachShop.js';
 import shoplist from '../examples/shoplist.js';
 
+
 const ListShop = ({setType}) => {
 	let first = 0;
 	let last = 3;
@@ -49,6 +50,7 @@ const ListShop = ({setType}) => {
 				/>
 			</Box>
 		</Box>
+
 	);
 };
 

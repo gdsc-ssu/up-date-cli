@@ -469,10 +469,10 @@ const ShopPost = ({category, setStoreName}) => {
 									//TODO : 저장하고 종료
 									setStoreName('');
 								} else if (confirmCommand == ':q!') {
-									//TODO : 저장하지 않고 종료
-									setConfirmCommand('');
+									setId('');
+									setStation('');
+									setStoreName('');
 								} else if (confirmCommand == ':e') {
-									//TODO : 입력 수정
 									setIsEdit(true);
 									console.log(inputStep);
 								} else {

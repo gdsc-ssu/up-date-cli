@@ -15,7 +15,7 @@ const Output = ({list}) => {
 					<Text color={theme.purple}>$ {item[1]} </Text>
 					<Newline />
 					{item[1] === 'ls' ? (
-						item[0].map((data, key) => <ListSubway data={data} key={key} />)
+						item[0].map((data, key) => <ListSubway data={data} />)
 					) : check.test(item[1]) ? (
 						''
 					) : (

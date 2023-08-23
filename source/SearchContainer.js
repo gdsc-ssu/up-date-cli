@@ -10,7 +10,7 @@ import ListShop from './component/ListShop.js';
 const SearchContainer = () => {
 	const [list, setlist] = useState([]);
 	const [station, setStation] = useState(''); // 타이핑된 역의 이름
-	const [Id, setId] = useState('');
+	const [Id, setId] = useState(0);
 	const [storeName, setStoreName] = useState('');
 	const [type, setType] = useState('');
 
