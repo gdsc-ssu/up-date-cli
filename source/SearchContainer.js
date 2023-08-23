@@ -36,12 +36,7 @@ const SearchContainer = () => {
 			) : Id ? (
 				<ShopDetail Id={Id} setId={setId} /> // 여기로 ID(나중엔 상세정보) 보내고, vi 탈출할때, setId값 초기화하면, 다시 커맨드 입력 창 나옴.
 			) : storeName ? (
-				<ShopPost
-					storeName={storeName}
-					setStoreName={setStoreName}
-					setId={setId}
-					setStation={setStation}
-				/>
+				<ShopPost setStoreName={setStoreName} />
 			) : (
 				<Search
 					setlist={setlist}

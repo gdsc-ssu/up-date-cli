@@ -41,7 +41,7 @@ const editContainer = (isFocused, text, key) => {
  * 카테고리는 cafe, restaurant로 구분된다.
  * 이외의 카테고리나 넣지 않으면 모든 카테고리에서 검색한다.
  */
-const ShopPost = ({category, storeName, setId, setStation, setStoreName}) => {
+const ShopPost = ({category, setStoreName}) => {
 	const [lastKeyPress, setLastKeyPress] = useState(null);
 
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
@@ -467,8 +467,6 @@ const ShopPost = ({category, storeName, setId, setStation, setStoreName}) => {
 							onSubmit={() => {
 								if (confirmCommand == ':wq') {
 									//TODO : 저장하고 종료
-									setId('');
-									setStation('');
 									setStoreName('');
 								} else if (confirmCommand == ':q!') {
 									//TODO : 저장하지 않고 종료
