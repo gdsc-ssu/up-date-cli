@@ -469,8 +469,6 @@ const ShopPost = ({category, setStoreName}) => {
 									//TODO : 저장하고 종료
 									setStoreName('');
 								} else if (confirmCommand == ':q!') {
-									setId('');
-									setStation('');
 									setStoreName('');
 								} else if (confirmCommand == ':e') {
 									setIsEdit(true);
