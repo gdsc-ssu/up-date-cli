@@ -1,5 +1,7 @@
-import React from 'react';
-import {Text, Newline, Box} from 'ink';
+import React, {useState} from 'react';
+import {Text, Newline, Box, useInput, Spacer} from 'ink';
+import TextInput from 'ink-text-input';
+import theme from '../Theme.js';
 
 /**
  *
@@ -43,6 +45,24 @@ const ShopDetail = ({Id, setId}) => {
 	const starRateRounded = Math.round(data.starRate);
 
 	const starRateString = '⭐'.repeat(starRateRounded);
+
+	const [command, setCommand] = useState('');
+
+	const onCommandSubmit = () => {
+		if (command === ':q') {
+			setId(0);
+		}
+		if (command === ':ar') {
+			// TODO : add review
+			setCommand('');
+		}
+		if (command === ':lm') {
+			// TODO : load more reviews
+			setCommand('');
+		}
+		// handle invalid command
+		setCommand('');
+	};
 
 	return (
 		<>
@@ -89,7 +109,7 @@ const ShopDetail = ({Id, setId}) => {
 					</Text>
 					<Text>
 						"reviews" : {'['}
-						<Newline />
+						{data.reviews.length == !0 ? <Newline /> : <></>}
 						{data.reviews.map((item, index, array) => (
 							<Text key={item.id}>
 								{' '}
@@ -103,6 +123,19 @@ const ShopDetail = ({Id, setId}) => {
 				</Text>
 			</Box>
 			<Text>{'}'}</Text>
+			<Text color={'red'}>Commands</Text>
+			<Box>
+				<Text color={theme.commandFirst}>:q - quit</Text>
+				<Spacer />
+				<Text color={theme.commandSecond}>:lm - load more reviews </Text>
+				<Spacer />
+				<Text color={theme.commandThird}>:ar - add review</Text>
+			</Box>
+			<TextInput
+				value={command}
+				onChange={setCommand}
+				onSubmit={onCommandSubmit}
+			/>
 		</>
 	);
 };

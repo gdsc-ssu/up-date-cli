@@ -2,9 +2,9 @@ import React from 'react';
 import {Text, Box, Newline} from 'ink';
 import theme from '../Theme.js';
 
-const ListShop = ({data, key}) => {
+const ListShop = ({data}) => {
 	return (
-		<React.Fragment key={key}>
+		<>
 			<Text>{'{'}</Text>
 			<Box marginLeft={2}>
 				<Text>
@@ -45,7 +45,7 @@ const ListShop = ({data, key}) => {
 				</Text>
 			</Box>
 			<Text>{'}'}</Text>
-		</React.Fragment>
+		</>
 	);
 };
 

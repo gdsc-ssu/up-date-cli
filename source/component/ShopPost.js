@@ -467,14 +467,15 @@ const ShopPost = ({category, storeName, setId, setStation, setStoreName}) => {
 							onSubmit={() => {
 								if (confirmCommand == ':wq') {
 									//TODO : 저장하고 종료
+									//데이터 저장 API 호출
 									setId('');
 									setStation('');
 									setStoreName('');
 								} else if (confirmCommand == ':q!') {
-									//TODO : 저장하지 않고 종료
-									setConfirmCommand('');
+									setId('');
+									setStation('');
+									setStoreName('');
 								} else if (confirmCommand == ':e') {
-									//TODO : 입력 수정
 									setIsEdit(true);
 									console.log(inputStep);
 								} else {
