@@ -1,51 +1,56 @@
-import React from 'react';
-import {Text, Box, Newline} from 'ink';
+import React, {useState} from 'react';
+import {Text, Box, Newline, Spacer} from 'ink';
 import theme from '../Theme.js';
+import TextInput from 'ink-text-input';
+import EachShop from './EachShop.js';
+import shoplist from '../examples/shoplist.js';
 
-const ListShop = ({data}) => {
+
+const ListShop = ({setType}) => {
+	let first = 0;
+	let last = 3;
+	const [confirmCommand, setConfirmCommand] = useState('');
+	const [shops, setShops] = useState(shoplist.slice(first, last));
+
+	const loadMore = () => {
+		setShops([...shops, ...shoplist.slice(first + 3, last + 3)]);
+	};
 	return (
-		<>
-			<Text>{'{'}</Text>
-			<Box marginLeft={2}>
-				<Text>
-					<Text>
-						"id" : "{data.id}",
-						<Newline />
-					</Text>
-					<Text>
-						"title" : "{data.title}",
-						<Newline />
-					</Text>
-					<Text marginLeft={2}>
-						"location" : "{data.location}",
-						<Newline />
-					</Text>
-					<Text>
-						"nearStation" : "{data.nearStation}",
-						<Newline />
-					</Text>
-					<Text>
-						"menu" : {'['}
-						<Newline />
-						{data.menu.map((item, index, array) => (
-							<Text key={item.name}>
-								{' '}
-								{'{'} "{item.name}" : {item.price} {'}'}
-								{index !== array.length - 1 ? ',' : ''}
-								<Newline />
-							</Text>
-						))}
-						{']'},
-						<Newline />
-					</Text>
-					<Text>
-						"starRate" : "{data.starRate}",
-						<Newline />
-					</Text>
+		<Box marginY={1} flexDirection="column">
+			{shops.map((data, key) => (
+				<EachShop data={data} key={key} />
+			))}
+			<Box flexDirection="column">
+				<Spacer />
+				<Text color={'red'}>
+					<Newline />
+					Commands
 				</Text>
+				<Box>
+					<Text color={'yellow'}>:q - quit</Text>
+					<Spacer />
+					<Text color={'green'}>:lm - load more</Text>
+					<Spacer />
+				</Box>
+
+				<TextInput
+					value={confirmCommand}
+					onChange={setConfirmCommand}
+					onSubmit={() => {
+						if (confirmCommand == ':q') {
+							//TODO : 저장하고 종료
+							setType('');
+						} else if (confirmCommand == ':lm') {
+							loadMore();
+							setConfirmCommand('');
+						} else {
+							setConfirmCommand('');
+						}
+					}}
+				/>
 			</Box>
-			<Text>{'}'}</Text>
-		</>
+		</Box>
+
 	);
 };
 
