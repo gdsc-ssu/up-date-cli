@@ -58,7 +58,8 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 						cd {'${station_name}'} - 정류장 선택
 					</Text>
 					<Text color={theme.commandThird}>ls - 리스트 보기</Text>
-					<Text color={theme.commandFourth}>exit - 종료</Text>
+					<Text color={theme.commandFourth}>mkdir - 가게 등록</Text>
+					<Text color={theme.commandFifth}>exit - 종료</Text>
 				</Box>
 			)}
 			<Box>
