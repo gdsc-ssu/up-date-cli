@@ -15,9 +15,9 @@ const Output = ({list}) => {
 					<Text color={theme.purple}>$ {item[1]} </Text>
 					<Newline />
 					{item[1] === 'ls' ? (
-						item[0].map((data, key) => <ListSubway data={data} key={key} />)
+						item[0].map((data, key) => <ListSubway data={data} />)
 					) : check.test(item[1]) ? (
-						item[0].map((data, key) => <ListShop data={data} key={key} />)
+						item[0].map((data, key) => <ListShop data={data} />)
 					) : (
 						<Text color={theme.red}>{item[0][0]}</Text>
 					)}
