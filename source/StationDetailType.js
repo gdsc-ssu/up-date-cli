@@ -3,9 +3,8 @@ import {Text, Box, useInput, Newline} from 'ink';
 import shoplist from './examples/shoplist.js';
 import theme from './Theme.js';
 
-const StationDetailType = ({station, setlist, setStation}) => {
+const StationDetailType = ({setType, station, setlist, setStation}) => {
 	const [num, setNum] = useState(1);
-	const [type, setType] = useState('');
 
 	useInput((input, key) => {
 		if (!key) return;
@@ -23,19 +22,19 @@ const StationDetailType = ({station, setlist, setStation}) => {
 		if (key.return) {
 			if (num === 1) {
 				setType('맛집');
-				setlist(list => [...list, [shoplist, `${station} 맛집`]]);
+				setlist(list => [...list, [[], `${station} 맛집`]]);
 				setStation('');
 			} else if (num === 2) {
 				setType('카페');
-				setlist(list => [...list, [shoplist, `${station} 카페`]]);
+				setlist(list => [...list, [[], `${station} 카페`]]);
 				setStation('');
 			} else if (num === 3) {
 				setType('액티비티');
-				setlist(list => [...list, [shoplist, `${station} 액티비티`]]);
+				setlist(list => [...list, [[], `${station} 액티비티`]]);
 				setStation('');
 			} else if (num === 4) {
 				setType('술집');
-				setlist(list => [...list, [shoplist, `${station} 술집`]]);
+				setlist(list => [...list, [[], `${station} 술집`]]);
 				setStation('');
 			}
 		}
@@ -51,7 +50,6 @@ const StationDetailType = ({station, setlist, setStation}) => {
 				</Text>
 				<Text color={num == 4 ? theme.purple : theme.neonGreen}>4. 술집</Text>
 			</Box>
-			{type ? <Text color="red"> ==&#62; {type}</Text> : ''}
 		</Box>
 	);
 };
