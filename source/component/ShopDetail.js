@@ -48,28 +48,21 @@ const ShopDetail = ({Id, setId}) => {
 
 	const [command, setCommand] = useState('');
 
-	const handleCommandSubmit = () => {
-		if (command === ':q' || command === ':wq') {
+	const onCommandSubmit = () => {
+		if (command === ':q') {
 			setId(0);
+		}
+		if (command === ':ar') {
+			// TODO : add review
 			setCommand('');
 		}
-		setCommand('1231');
+		if (command === ':lm') {
+			// TODO : load more reviews
+			setCommand('');
+		}
+		// handle invalid command
+		setCommand('');
 	};
-
-	useInput((input, key) => {
-		if (!key) return;
-
-		if (key.enter) {
-			if (command === ':q') {
-				setCommand('');
-				setId(0);
-			}
-			if (command === ':lm') {
-				setCommand('');
-			}
-			setCommand('');
-		}
-	});
 
 	return (
 		<>
@@ -141,7 +134,7 @@ const ShopDetail = ({Id, setId}) => {
 			<TextInput
 				value={command}
 				onChange={setCommand}
-				onSubmit={handleCommandSubmit}
+				onSubmit={onCommandSubmit}
 			/>
 		</>
 	);
