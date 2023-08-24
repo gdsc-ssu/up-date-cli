@@ -36,8 +36,6 @@
 	"dependencies": {
 		"axios": "^1.4.0",
 		"dotenv": "^16.3.1",
-		"enquirer": "^2.3.6",
-		"got": "^13.0.0",
 		"ink": "^4.1.0",
 		"ink-text-input": "^5.0.1",
 		"meow": "^11.0.0",
