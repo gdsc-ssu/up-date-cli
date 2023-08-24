@@ -44,6 +44,15 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 			if (search === 'exit') {
 				process.exit(0);
 			}
+			if (search === '') {
+				setlist(list => [...list, [[], search]]);
+				return;
+			}
+			if (search === 'clear') {
+				setlist([]);
+				setSearch('');
+				return;
+			}
 			setlist(list => [...list, [['command not found'], search]]);
 			setSearch('');
 		}
