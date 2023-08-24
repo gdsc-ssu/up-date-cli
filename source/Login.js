@@ -6,7 +6,6 @@ import theme from './Theme.js';
 const Login = ({Id, setId, setShow}) => {
 	const [nextStepInfo, setNextStepInfo] = useState(false);
 	const [Password, setPassword] = useState('');
-	const [isSelected, setIsSelected] = useState(true);
 
 	useInput((input, key) => {
 		if (!key) return;

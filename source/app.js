@@ -16,7 +16,6 @@ const App = () => {
 	return (
 		<>
 			<Intro />
-			<Text>press "help" to see the list of commands</Text>
 			{show ? (
 				<Text color={theme.white}>Username : {Id}</Text>
 			) : (
