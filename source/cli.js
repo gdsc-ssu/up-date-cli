@@ -9,6 +9,9 @@ const cli = meow(
     Usage
       $ up-date
   `,
+	{
+		importMeta: import.meta,
+	},
 );
 
 render(<App />);
