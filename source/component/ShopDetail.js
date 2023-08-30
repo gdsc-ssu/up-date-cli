@@ -105,9 +105,9 @@ const ShopDetail = ({Id, setId}) => {
 					<Text color={'red'}>Commands</Text>
 					<Box>
 						<Text color={theme.commandFirst}>:q - quit</Text>
-						<Spacer />
-						<Text color={theme.commandSecond}>:lm - load more reviews </Text>
-						<Spacer />
+						<Text> / </Text>
+						<Text color={theme.commandSecond}>:lm - load more reviews</Text>
+						<Text> / </Text>
 						<Text color={theme.commandThird}>:ar - add review</Text>
 					</Box>
 					<TextInput

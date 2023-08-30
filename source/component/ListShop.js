@@ -27,11 +27,9 @@ const ListShop = ({setType}) => {
 				</Text>
 				<Box>
 					<Text color={'yellow'}>:q - quit</Text>
-					<Spacer />
-					<Text color={'green'}>:lm - load more</Text>
-					<Spacer />
+					<Text> / </Text>
+					<Text color={'green'}>:lm - load more reviews</Text>
 				</Box>
-
 				<TextInput
 					value={confirmCommand}
 					onChange={setConfirmCommand}

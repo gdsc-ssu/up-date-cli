@@ -453,9 +453,9 @@ const ShopPost = ({category, setStoreName}) => {
 					</Text>
 					<Box>
 						<Text color={'yellow'}>:wq - save and quit</Text>
-						<Spacer />
+						<Text> / </Text>
 						<Text color={'green'}>:q! - force quit</Text>
-						<Spacer />
+						<Text> / </Text>
 						<Text color={'blue'}>:e - edit input </Text>
 					</Box>
 
