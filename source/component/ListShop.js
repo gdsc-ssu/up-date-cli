@@ -16,9 +16,13 @@ const ListShop = ({setType}) => {
 	};
 	return (
 		<Box marginY={1} flexDirection="column">
-			{shops.map((data, key) => (
-				<EachShop data={data} key={key} />
-			))}
+			<Text>{'['}</Text>
+			<Box marginLeft={2} flexDirection="column">
+				{shops.map((data, index, key) => (
+					<EachShop data={data} key={key} isEnd={index === shops.length - 1} />
+				))}
+			</Box>
+			<Text>{']'}</Text>
 			<Box flexDirection="column">
 				<Spacer />
 				<Text color={'red'}>
