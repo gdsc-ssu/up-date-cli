@@ -24,7 +24,7 @@ import theme from '../Theme.js';
  * 	reviews: [],
  * }
  */
-const ShopDetail = ({Id, setId}) => {
+const ShopDetail = ({id, setId, userId}) => {
 	const initialData = {
 		id: '1',
 		title: 'The 5th Wave',
@@ -50,8 +50,8 @@ const ShopDetail = ({Id, setId}) => {
 	const [command, setCommand] = useState('');
 
 	const [isAddReview, setIsAddReview] = useState(false);
-	const [currentReview, setCurrentReview] = useState('');
-	const [currentRate, setCurrentRate] = useState(1);
+	const [content, setContent] = useState('');
+	const [rate, setRate] = useState(5);
 
 	const onCommandSubmit = () => {
 		if (command === ':q') {
@@ -64,6 +64,15 @@ const ShopDetail = ({Id, setId}) => {
 		}
 		if (command === ':lm') {
 			// TODO : load more reviews
+			const updatedReviews = [
+				...data.reviews,
+				{
+					writer: 'hoyeon',
+					content: 'content',
+					starRate: 3,
+				},
+			];
+			setData({...data, reviews: updatedReviews});
 			setCommand('');
 		}
 		// handle invalid command
@@ -72,10 +81,10 @@ const ShopDetail = ({Id, setId}) => {
 
 	useInput((input, key) => {
 		if (isAddReview) {
-			if (key.upArrow && currentRate < 5) {
-				setCurrentRate(prevRate => prevRate + 1);
-			} else if (key.downArrow && currentRate > 1) {
-				setCurrentRate(prevRate => prevRate - 1);
+			if (key.upArrow && rate < 5) {
+				setRate(prevRate => prevRate + 1);
+			} else if (key.downArrow && rate > 1) {
+				setRate(prevRate => prevRate - 1);
 			}
 		}
 	});
@@ -86,22 +95,22 @@ const ShopDetail = ({Id, setId}) => {
 		const updatedReviews = [
 			...data.reviews,
 			{
-				writer: 'hoyeon',
-				content: currentReview,
-				starRate: currentRate,
+				writer: userId,
+				content: content,
+				starRate: rate,
 			},
 		];
 
 		setData({...data, reviews: updatedReviews});
-		setCurrentReview('');
-		setCurrentRate(1);
+		setContent('');
+		setRate(5);
 	};
 
 	return (
 		<>
-			<ShopView data={data} />
 			{!isAddReview ? (
 				<>
+					<ShopView data={data} />
 					<Text color={'red'}>Commands</Text>
 					<Box>
 						<Text color={theme.commandFirst}>:q - quit</Text>
@@ -118,17 +127,28 @@ const ShopDetail = ({Id, setId}) => {
 				</>
 			) : (
 				<>
-					<TextInput
-						value={currentReview}
-						onChange={setCurrentReview}
-						onSubmit={onReivewSubmit}
-					/>
-
-					<Box>
-						<Text>{currentRate}</Text>
-						<Spacer />
-						<Text>⬆️ / ⬇️ to set rating</Text>
+					<Text>
+						// Add review <Newline />
+						{'{'}
+					</Text>
+					<Box marginLeft={2} flexDirection="column">
+						<Box>
+							<Text>"content" : "</Text>
+							<TextInput
+								value={content}
+								onChange={setContent}
+								onSubmit={onReivewSubmit}
+							/>
+							<Text>"</Text>
+						</Box>
+						<Box>
+							<Text>"starRate" : {rate}</Text>
+						</Box>
+						<Box>
+							<Text>"helpText" : "⬆️ / ⬇️ to set rating"</Text>
+						</Box>
 					</Box>
+					<Text>{'}'}</Text>
 				</>
 			)}
 		</>
@@ -141,33 +161,30 @@ const ShopView = ({data}) => {
 	return (
 		<>
 			<Text>{'{'}</Text>
-			<Box marginLeft={2}>
-				<Text>
-					<Text>
-						"id" : "{data.id}",
-						<Newline />
-					</Text>
-					<Text>
-						"title" : "{data.title}",
-						<Newline />
-					</Text>
-					<Text marginLeft={2}>
-						"location" : "{data.location}",
-						<Newline />
-					</Text>
-					<Text>
-						"nearStation" : "{data.nearStation}",
-						<Newline />
-					</Text>
+			<Box marginLeft={2} flexDirection="column">
+				<Box>
+					<Text>"id" : "{data.id}",</Text>
+				</Box>
+				<Box>
+					<Text>"title" : "{data.title}",</Text>
+				</Box>
+				<Box>
+					<Text marginLeft={2}>"location" : "{data.location}",</Text>
+				</Box>
+				<Box>
+					<Text>"nearStation" : "{data.nearStation}",</Text>
+				</Box>
+				<Box>
 					<Text>
 						"openTime" : "{data.openTime}" - "{data.closeTime}",
-						<Newline />
 					</Text>
+				</Box>
+				<Box>
 					<Text>
 						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
-							<Text key={item.name}>
+							<Text>
 								{' '}
 								{'{'} "{item.name}" : {item.price} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
@@ -175,29 +192,51 @@ const ShopView = ({data}) => {
 							</Text>
 						))}
 						{']'},
-						<Newline />
 					</Text>
+				</Box>
+				<Box>
 					<Text>
 						"starRate" : "{starRateString}({data.starRate})",
-						<Newline />
 					</Text>
-					<Text>
-						"reviews" : {'['}
-						{data.reviews.length ? <Newline /> : <></>}
-						{data.reviews.map((item, index, array) => (
-							<Text key={item.id}>
-								{' '}
-								{'{'} "{item.writer}" : "{item.content} ({item.starRate})" {'}'}
-								{index !== array.length - 1 ? ',' : ''}
-								<Newline />
-							</Text>
-						))}
-						{']'}
-					</Text>
-				</Text>
+				</Box>
+				{data.reviews.length > 0 ? (
+					<Box flexDirection="column">
+						<Box>
+							<Text>"reviews" : {'['}</Text>
+						</Box>
+						<Box flexDirection="column">
+							{data.reviews.map((item, index) => (
+								<ReviewView
+									writer={item.writer}
+									content={item.content}
+									starRate={item.starRate}
+									isEnd={index !== data.reviews.length - 1}
+								/>
+							))}
+						</Box>
+						<Box>
+							<Text>{']'}</Text>
+						</Box>
+					</Box>
+				) : (
+					<Box>
+						<Text>"reviews" : {'[]'}</Text>
+					</Box>
+				)}
 			</Box>
 			<Text>{'}'}</Text>
 		</>
+	);
+};
+
+const ReviewView = ({writer, content, starRate, isEnd}) => {
+	return (
+		<Box marginLeft={2}>
+			<Text>
+				{'{'} "{writer}" : "{content} ({starRate})" {'}'}
+				{isEnd ? ',' : ''}
+			</Text>
+		</Box>
 	);
 };
 
