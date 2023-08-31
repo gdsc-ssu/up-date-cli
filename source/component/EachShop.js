@@ -12,7 +12,7 @@ const EachShop = ({data, key}) => {
 						<Newline />
 					</Text>
 					<Text>
-						"title" : "{data.title}",
+						"name" : "{data.name}",
 						<Newline />
 					</Text>
 					<Text marginLeft={2}>
@@ -20,16 +20,16 @@ const EachShop = ({data, key}) => {
 						<Newline />
 					</Text>
 					<Text>
-						"nearStation" : "{data.nearStation}",
+						"storeUrl" : "{data.url}",
 						<Newline />
 					</Text>
 					<Text>
 						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
-							<Text key={item.name}>
+							<Text key={index}>
 								{' '}
-								{'{'} "{item.name}" : {item.price} {'}'}
+								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
 								<Newline />
 							</Text>
@@ -38,7 +38,7 @@ const EachShop = ({data, key}) => {
 						<Newline />
 					</Text>
 					<Text>
-						"starRate" : "{data.starRate}",
+						"starRate" : "{data.averageStar}",
 						<Newline />
 					</Text>
 				</Text>
