@@ -47,8 +47,7 @@ const Search = ({setlist, setStation, setId, setStoreName}) => {
 		}
 
 		if (minDistance <= 2) {
-			// 임의로 설정한 threshold
-			return `Command Not found. Did you mean "${closestCommand}"?`;
+			return `Command not found. Did you mean "${closestCommand}"?`;
 		}
 
 		return 'Command not found.';

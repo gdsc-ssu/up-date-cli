@@ -12,7 +12,6 @@ const Login = ({userId, setId, setShow}) => {
 		if (!key) return;
 
 		if (key.return) {
-			setShow(true);
 			if (nextStepInfo) {
 				if (userId === 'hoyeon' && eMail == 'hello') {
 					setShow(true);
