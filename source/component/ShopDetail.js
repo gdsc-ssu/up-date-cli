@@ -159,21 +159,21 @@ const ShopView = ({data}) => {
 						"openTime" : "{data.open_time}" - "{data.end_time}",
 					</Text>
 				</Box>
-				{/* <Box>
+				<Box>
 					<Text>
 						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
 							<Text>
 								{' '}
-								{'{'} "{item.name}" : {item.price} {'}'}
+								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
 								<Newline />
 							</Text>
 						))}
 						{']'},
 					</Text>
-				</Box> */}
+				</Box>
 				<Box>
 					<Text>
 						"starRate" : "{starRateString}({data.averageStar})",
