@@ -14,13 +14,27 @@ const ListShop = ({shops, setShops, setType}) => {
 
 	return (
 		<Box marginY={1} flexDirection="column">
-			<Text>{'['}</Text>
-			<Box marginLeft={2} flexDirection="column">
-				{shops.map((data, index, key) => (
-					<EachShop data={data} key={key} isEnd={index === shops.length - 1} />
-				))}
-			</Box>
-			<Text>{']'}</Text>
+			{shops.length === 0 ? (
+				<Box flexDirection="column">
+					<Text>Status code: 404</Text>
+					<Text color={'red'}>검색 결과가 없습니다.</Text>
+				</Box>
+			) : (
+				<Box flexDirection="column">
+					<Text>{'['}</Text>
+					<Box marginLeft={2} flexDirection="column">
+						{shops.map((data, index, key) => (
+							<EachShop
+								data={data}
+								key={key}
+								isEnd={index === shops.length - 1}
+							/>
+						))}
+					</Box>
+					<Text>{']'}</Text>
+				</Box>
+			)}
+
 			<Box flexDirection="column">
 				<Spacer />
 				<Text color={'red'}>
