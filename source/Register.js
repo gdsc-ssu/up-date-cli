@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from './Theme.js';
+import {postRegister} from './api/remote.js';
 
 const Register = ({setIsSelected, setSpaceStep}) => {
 	const [nextStepInfo, setNextStepInfo] = useState(0);
-	const [Id, setId] = useState('');
-	const [Password, setPassword] = useState('');
+	const [userId, setUserId] = useState('');
+	const [eMail, setEMail] = useState('');
 	const [girlfriend, setGirlfriend] = useState('');
 	const [openMessage, setOpenMessage] = useState('');
 
@@ -17,6 +18,7 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			if (nextStepInfo === 2) {
 				setSpaceStep('login');
 				setIsSelected(true);
+				postRegister(userId, eMail);
 			}
 			setNextStepInfo(nextStepInfo + 1);
 		}
@@ -34,21 +36,21 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			<Box>
 				<Text color={theme.neonGreen}>NEW ID: </Text>
 				{nextStepInfo === 0 ? (
-					<TextInput value={Id} onChange={setId} />
+					<TextInput value={userId} onChange={setUserId} />
 				) : (
-					<Text>{Id}</Text>
+					<Text>{userId}</Text>
 				)}
 			</Box>
 			<Box>
 				{nextStepInfo === 1 ? (
 					<>
 						<Text color={theme.neonGreen}>NEW EMAIL: </Text>
-						<TextInput value={Password} onChange={setPassword} />
+						<TextInput value={eMail} onChange={setEMail} />
 					</>
 				) : nextStepInfo === 2 ? (
 					<>
 						<Text color={theme.neonGreen}>NEW EMAIL: </Text>
-						<Text> {Password}</Text>
+						<Text> {eMail}</Text>
 					</>
 				) : (
 					''
