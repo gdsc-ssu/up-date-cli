@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Text, Newline, Box, Spacer} from 'ink';
+import {Text, Newline, Box, Spacer, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
 import SingleShop from './SingleShop.js';
 
-
-const ShopDetail = ({id, setId, userId,singleShop}) => {
+const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const initialData = {
 		id: '1',
 		title: 'The 5th Wave',
@@ -26,7 +25,7 @@ const ShopDetail = ({id, setId, userId,singleShop}) => {
 		],
 	};
 
-	const [data, setData] = useState(initialData);
+	const [data, setData] = useState(singleShop);
 
 	const [command, setCommand] = useState('');
 
@@ -88,7 +87,6 @@ const ShopDetail = ({id, setId, userId,singleShop}) => {
 	};
 
 	return (
-
 		<>
 			{!isAddReview ? (
 				<>
@@ -138,7 +136,7 @@ const ShopDetail = ({id, setId, userId,singleShop}) => {
 };
 
 const ShopView = ({data}) => {
-	const starRateString = '⭐'.repeat(Math.round(data.starRate));
+	const starRateString = '⭐'.repeat(Math.round(data.averageStar));
 
 	return (
 		<>
@@ -148,20 +146,20 @@ const ShopView = ({data}) => {
 					<Text>"id" : "{data.id}",</Text>
 				</Box>
 				<Box>
-					<Text>"title" : "{data.title}",</Text>
+					<Text>"name" : "{data.name}",</Text>
 				</Box>
 				<Box>
 					<Text marginLeft={2}>"location" : "{data.location}",</Text>
 				</Box>
 				<Box>
-					<Text>"nearStation" : "{data.nearStation}",</Text>
+					<Text>"nearStation" : "{data.station}",</Text>
 				</Box>
 				<Box>
 					<Text>
-						"openTime" : "{data.openTime}" - "{data.closeTime}",
+						"openTime" : "{data.open_time}" - "{data.end_time}",
 					</Text>
 				</Box>
-				<Box>
+				{/* <Box>
 					<Text>
 						"menu" : {'['}
 						<Newline />
@@ -175,13 +173,13 @@ const ShopView = ({data}) => {
 						))}
 						{']'},
 					</Text>
-				</Box>
+				</Box> */}
 				<Box>
 					<Text>
-						"starRate" : "{starRateString}({data.starRate})",
+						"starRate" : "{starRateString}({data.averageStar})",
 					</Text>
 				</Box>
-				{data.reviews.length > 0 ? (
+				{/* {data.reviews.length > 0 ? (
 					<Box flexDirection="column">
 						<Box>
 							<Text>"reviews" : {'['}</Text>
@@ -204,7 +202,7 @@ const ShopView = ({data}) => {
 					<Box>
 						<Text>"reviews" : {'[]'}</Text>
 					</Box>
-				)}
+				)} */}
 			</Box>
 			<Text>{'}'}</Text>
 		</>
