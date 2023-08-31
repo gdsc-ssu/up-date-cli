@@ -13,3 +13,26 @@ const getReviewCheck = placeId =>
 	UpdateAxios.get(`/review/place/${placeId}?page=1`);
 
 export {getAllPlaceCheck, getSinglePlaceCheck, getReviewCheck};
+const postShop = (
+	userId,
+	name,
+	phoneNumber,
+	location,
+	start_at,
+	end_at,
+	latitude,
+	longitude,
+	url,
+	menu,
+) =>
+	UpdateAxios.post(`/place/user/${userId}`, {
+		name,
+		phoneNumber,
+		location,
+		start_at,
+		end_at,
+		latitude,
+		longitude,
+		url,
+		menu,
+	});
