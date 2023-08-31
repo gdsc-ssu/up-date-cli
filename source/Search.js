@@ -47,7 +47,7 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 			}
 		}
 
-		if (minDistance <= 2) {
+		if (minDistance <= 1) {
 			return `Command not found. Did you mean "${closestCommand}"?`;
 		}
 
@@ -60,14 +60,16 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 		if (key.return) {
 			setPreviousCommand(search);
 			if (search === 'ls') {
-				setlist(list => [...list, [data.location, search]]);
+				setlist(list => [...list, [data.locations, search]]);
 				setSearch('');
 				return;
 			}
 			if (search.startsWith('cd ')) {
-				let station = search.slice(3, search.length);
-				setlist(list => [...list, [[], search]]);
-				setStation(station);
+				let station = search.slice(3, search.length).trim();
+				if (data.locations.includes(station)) {
+					setlist(list => [...list, [[], search]]);
+					setStation(station);
+				}
 				setSearch('');
 				return;
 			}
