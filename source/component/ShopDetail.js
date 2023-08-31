@@ -1,30 +1,10 @@
 import React, {useState} from 'react';
-import {Text, Newline, Box, useInput, Spacer} from 'ink';
+import {Text, Newline, Box, Spacer, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
+import SingleShop from './SingleShop.js';
 
-/**
- *
- * @param {Object} data
- * @description
- * data = {
- * 	id: '1',
- * 	title: 'The 5th Wave',
- * 	location: '서울시 동작구 상도로 369',
- * 	nearStation: '상도역',
- * 	openTime: '09:00',
- * 	closeTime: '22:00',
- * 	menu: [
- * 		{
- * 			name: '카페라떼',
- * 			price: 4000,
- * 		},
- * 	],
- * 	starRate: 4.5,
- * 	reviews: [],
- * }
- */
-const ShopDetail = ({id, setId, userId}) => {
+const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const initialData = {
 		id: '1',
 		title: 'The 5th Wave',
@@ -45,7 +25,7 @@ const ShopDetail = ({id, setId, userId}) => {
 		],
 	};
 
-	const [data, setData] = useState(initialData);
+	const [data, setData] = useState(singleShop);
 
 	const [command, setCommand] = useState('');
 
@@ -156,7 +136,7 @@ const ShopDetail = ({id, setId, userId}) => {
 };
 
 const ShopView = ({data}) => {
-	const starRateString = '⭐'.repeat(Math.round(data.starRate));
+	const starRateString = '⭐'.repeat(Math.round(data.averageStar));
 
 	return (
 		<>
@@ -166,17 +146,17 @@ const ShopView = ({data}) => {
 					<Text>"id" : "{data.id}",</Text>
 				</Box>
 				<Box>
-					<Text>"title" : "{data.title}",</Text>
+					<Text>"name" : "{data.name}",</Text>
 				</Box>
 				<Box>
 					<Text marginLeft={2}>"location" : "{data.location}",</Text>
 				</Box>
 				<Box>
-					<Text>"nearStation" : "{data.nearStation}",</Text>
+					<Text>"nearStation" : "{data.station}",</Text>
 				</Box>
 				<Box>
 					<Text>
-						"openTime" : "{data.openTime}" - "{data.closeTime}",
+						"openTime" : "{data.open_time}" - "{data.end_time}",
 					</Text>
 				</Box>
 				<Box>
@@ -186,7 +166,7 @@ const ShopView = ({data}) => {
 						{data.menu.map((item, index, array) => (
 							<Text>
 								{' '}
-								{'{'} "{item.name}" : {item.price} {'}'}
+								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
 								<Newline />
 							</Text>
@@ -196,7 +176,7 @@ const ShopView = ({data}) => {
 				</Box>
 				<Box>
 					<Text>
-						"starRate" : "{starRateString}({data.starRate})",
+						"starRate" : "{starRateString}({data.averageStar})",
 					</Text>
 				</Box>
 				{data.reviews.length > 0 ? (
@@ -207,9 +187,9 @@ const ShopView = ({data}) => {
 						<Box flexDirection="column">
 							{data.reviews.map((item, index) => (
 								<ReviewView
-									writer={item.writer}
+									writer={item.userId}
 									content={item.content}
-									starRate={item.starRate}
+									starRate={item.star}
 									isEnd={index !== data.reviews.length - 1}
 								/>
 							))}

@@ -13,6 +13,8 @@ const SearchContainer = ({userId}) => {
 	const [id, setId] = useState(0);
 	const [storeName, setStoreName] = useState('');
 	const [type, setType] = useState('');
+	const [shops, setShops] = useState([]);
+	const [singleShop, setSingleShop] = useState({});
 
 	return (
 		<Box marginY={1} flexDirection="column">
@@ -28,13 +30,19 @@ const SearchContainer = ({userId}) => {
 				<StationDetailType
 					setType={setType}
 					station={station}
+					setShops={setShops}
 					setlist={setlist}
 					setStation={setStation}
 				/>
 			) : type ? (
-				<ListShop setType={setType} />
+				<ListShop shops={shops} setShops={setShops} setType={setType} />
 			) : id ? (
-				<ShopDetail id={id} setId={setId} userId={userId} />
+				<ShopDetail
+					id={id}
+					setId={setId}
+					userId={userId}
+					singleShop={singleShop}
+				/>
 			) : storeName ? (
 				<ShopPost setStoreName={setStoreName} />
 			) : (
@@ -43,6 +51,7 @@ const SearchContainer = ({userId}) => {
 					setStation={setStation}
 					setId={setId}
 					setStoreName={setStoreName}
+					setSingleShop={setSingleShop}
 				/>
 			)}
 		</Box>
