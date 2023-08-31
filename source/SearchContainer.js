@@ -37,7 +37,12 @@ const SearchContainer = ({userId}) => {
 			) : type ? (
 				<ListShop shops={shops} setShops={setShops} setType={setType} />
 			) : id ? (
-				<ShopDetail id={id} setId={setId} userId={userId}  singleShop={singleShop} />
+				<ShopDetail
+					id={id}
+					setId={setId}
+					userId={userId}
+					singleShop={singleShop}
+				/>
 			) : storeName ? (
 				<ShopPost setStoreName={setStoreName} />
 			) : (
