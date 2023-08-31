@@ -28,6 +28,7 @@ const Login = ({userId, setId, setShow}) => {
 						setId('');
 						setEMail('');
 						setLoginSuccess(false);
+						setIsLoading(false);
 					}
 				});
 			}
