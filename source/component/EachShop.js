@@ -38,10 +38,7 @@ const EachShop = ({data, key, isEnd}) => {
 						<Newline />
 					</Text>
 
-					<Text>
-						"starRate" : "{data.averageStar}",
-						<Newline />
-					</Text>
+					<Text>"starRate" : "{data.averageStar}"</Text>
 				</Text>
 			</Box>
 			<Text>{isEnd ? '}' : '},'}</Text>
