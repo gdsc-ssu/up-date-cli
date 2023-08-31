@@ -9,4 +9,7 @@ const getAllPlaceCheck = (page, station) =>
 
 const getSinglePlaceCheck = placeId => UpdateAxios.get(`/place/${placeId}`);
 
-export {getAllPlaceCheck, getSinglePlaceCheck};
+const getReviewCheck = placeId =>
+	UpdateAxios.get(`/review/place/${placeId}?page=1`);
+
+export {getAllPlaceCheck, getSinglePlaceCheck, getReviewCheck};
