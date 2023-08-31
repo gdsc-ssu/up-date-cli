@@ -12,7 +12,6 @@ const getSinglePlaceCheck = placeId => UpdateAxios.get(`/place/${placeId}`);
 const getReviewCheck = placeId =>
 	UpdateAxios.get(`/review/place/${placeId}?page=1`);
 
-export {getAllPlaceCheck, getSinglePlaceCheck, getReviewCheck};
 const postShop = (
 	userId,
 	name,
@@ -36,3 +35,21 @@ const postShop = (
 		url,
 		menu,
 	});
+
+const getLoginCheck = (userId, eMail) =>
+	UpdateAxios.get(`/user/${userId}?email=${eMail}`);
+
+const postRegister = (userId, eMail) =>
+	UpdateAxios.post(`/user`, {
+		id: userId,
+		email: eMail,
+	});
+
+export {
+	getAllPlaceCheck,
+	getSinglePlaceCheck,
+	postShop,
+	getLoginCheck,
+	postRegister,
+	getReviewCheck,
+};
