@@ -179,7 +179,7 @@ const ShopView = ({data}) => {
 						"starRate" : "{starRateString}({data.averageStar})",
 					</Text>
 				</Box>
-				{/* {data.reviews.length > 0 ? (
+				{data.reviews.length > 0 ? (
 					<Box flexDirection="column">
 						<Box>
 							<Text>"reviews" : {'['}</Text>
@@ -187,9 +187,9 @@ const ShopView = ({data}) => {
 						<Box flexDirection="column">
 							{data.reviews.map((item, index) => (
 								<ReviewView
-									writer={item.writer}
+									writer={item.userId}
 									content={item.content}
-									starRate={item.starRate}
+									starRate={item.star}
 									isEnd={index !== data.reviews.length - 1}
 								/>
 							))}
@@ -202,7 +202,7 @@ const ShopView = ({data}) => {
 					<Box>
 						<Text>"reviews" : {'[]'}</Text>
 					</Box>
-				)} */}
+				)}
 			</Box>
 			<Text>{'}'}</Text>
 		</>
