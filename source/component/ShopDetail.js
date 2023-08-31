@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Text, Newline, Box, Spacer, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
-import SingleShop from './SingleShop.js';
 
 const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const [data, setData] = useState(singleShop);
