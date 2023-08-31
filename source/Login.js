@@ -3,46 +3,49 @@ import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from './Theme.js';
 
-const Login = ({Id, setId, setShow}) => {
+const Login = ({userId, setId, setShow}) => {
 	const [nextStepInfo, setNextStepInfo] = useState(false);
-	const [Password, setPassword] = useState('');
-	const [isSelected, setIsSelected] = useState(true);
+	const [eMail, setEMail] = useState('');
+	const [loginSuccess, setLoginSuccess] = useState(true);
 
 	useInput((input, key) => {
 		if (!key) return;
 
 		if (key.return) {
 			if (nextStepInfo) {
-				if (Id === 'hoyeon' && Password == 'hello') {
+				if (userId === 'hoyeon' && eMail == 'hello') {
 					setShow(true);
 				} else {
-					process.exit(0); //아이디 비번이 틀릴경우 (임시)
+					setId('');
+					setEMail('');
+					setLoginSuccess(false);
 				}
 			}
-			setNextStepInfo(true);
+
+			setNextStepInfo(!nextStepInfo);
 		} else if (input === 'c') {
 			process.exit(0);
 		}
 	});
-	//아이디 비번 받아서 서버랑 연결
 
 	return (
 		<Box marginY={1} flexDirection="column">
+			{loginSuccess ? '' : <Text color={theme.red}>ID or EMail is wrong</Text>}
 			<Box>
 				<Text color={theme.neonGreen}>ID: </Text>
 				{nextStepInfo ? (
-					<Text>{Id}</Text>
+					<Text>{userId}</Text>
 				) : (
-					<TextInput value={Id} onChange={setId} />
+					<TextInput value={userId} onChange={setId} />
 				)}
 			</Box>
 			{nextStepInfo ? (
 				<Box>
-					<Text color={theme.neonGreen}>PASSWORD: </Text>
-					<TextInput value={Password} onChange={setPassword} />
+					<Text color={theme.neonGreen}>EMAIL: </Text>
+					<TextInput value={eMail} onChange={setEMail} />
 				</Box>
 			) : (
-				<Text>{Password}</Text>
+				<Text>{eMail}</Text>
 			)}
 		</Box>
 	);

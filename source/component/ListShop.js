@@ -14,9 +14,13 @@ const ListShop = ({shops, setShops, setType}) => {
 
 	return (
 		<Box marginY={1} flexDirection="column">
-			{shops.map((data, key) => (
-				<EachShop data={data} key={key} />
-			))}
+			<Text>{'['}</Text>
+			<Box marginLeft={2} flexDirection="column">
+				{shops.map((data, index, key) => (
+					<EachShop data={data} key={key} isEnd={index === shops.length - 1} />
+				))}
+			</Box>
+			<Text>{']'}</Text>
 			<Box flexDirection="column">
 				<Spacer />
 				<Text color={'red'}>
@@ -25,11 +29,9 @@ const ListShop = ({shops, setShops, setType}) => {
 				</Text>
 				<Box>
 					<Text color={'yellow'}>:q - quit</Text>
-					<Spacer />
-					<Text color={'green'}>:lm - load more</Text>
-					<Spacer />
+					<Text> / </Text>
+					<Text color={'green'}>:lm - load more reviews</Text>
 				</Box>
-
 				<TextInput
 					value={confirmCommand}
 					onChange={setConfirmCommand}

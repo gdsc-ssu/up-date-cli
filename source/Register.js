@@ -42,12 +42,12 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			<Box>
 				{nextStepInfo === 1 ? (
 					<>
-						<Text color={theme.neonGreen}>NEW PASSWORD: </Text>
+						<Text color={theme.neonGreen}>NEW EMAIL: </Text>
 						<TextInput value={Password} onChange={setPassword} />
 					</>
 				) : nextStepInfo === 2 ? (
 					<>
-						<Text color={theme.neonGreen}>NEW PASSWORD: </Text>
+						<Text color={theme.neonGreen}>NEW EMAIL: </Text>
 						<Text> {Password}</Text>
 					</>
 				) : (
@@ -64,7 +64,7 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			)}
 			{openMessage === 'complete' ? (
 				<Text color={theme.red}>
-					Sign up is complete. (Please press space to login.)
+					Sign up is complete. (Please press enter to login.)
 				</Text>
 			) : openMessage === 'fail' ? (
 				<Text color={theme.red}>Sign up is not possible.</Text>

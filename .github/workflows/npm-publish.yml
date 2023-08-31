@@ -1,8 +1,9 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  create:
+    tags:
+      - v*
 
 jobs:
   build:
@@ -13,6 +14,7 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
+      - run: npm run format
       - run: npm test
 
   publish-npm:
@@ -25,6 +27,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: echo "KAKAO_API_KEY=${{ secrets.kakao_key }}" >> .env
       - run: npm run build
       - run: npm publish
         env:

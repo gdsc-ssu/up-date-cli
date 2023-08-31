@@ -263,13 +263,6 @@ const ShopPost = ({category, setStoreName}) => {
 		setFocus(0); // 포커스 초기화
 	};
 
-	// 메뉴 삭제
-	const deleteMenu = index => {
-		const newMenuList = [...menuList];
-		newMenuList.splice(index, 1);
-		setMenuList(newMenuList);
-	};
-
 	const searchKakaoShops = async () => {
 		if (!shopTitle.length) {
 			setKakaoShops([]);
@@ -423,6 +416,7 @@ const ShopPost = ({category, setStoreName}) => {
 								</Box>
 							</Box>
 						) : (
+							//TODO : 수정 컴포넌트 새로 빼기
 							<Box flexDirection="column" marginLeft={2}>
 								{menuList.map((menu, index) => (
 									<Box key={index}>
@@ -453,9 +447,9 @@ const ShopPost = ({category, setStoreName}) => {
 					</Text>
 					<Box>
 						<Text color={'yellow'}>:wq - save and quit</Text>
-						<Spacer />
+						<Text> / </Text>
 						<Text color={'green'}>:q! - force quit</Text>
-						<Spacer />
+						<Text> / </Text>
 						<Text color={'blue'}>:e - edit input </Text>
 					</Box>
 

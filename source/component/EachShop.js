@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, Box, Newline} from 'ink';
 
-const EachShop = ({data, key}) => {
+const EachShop = ({data, key, isEnd}) => {
 	return (
 		<React.Fragment key={key}>
 			<Text>{'{'}</Text>
@@ -37,13 +37,15 @@ const EachShop = ({data, key}) => {
 						{']'},
 						<Newline />
 					</Text>
+
 					<Text>
 						"starRate" : "{data.averageStar}",
 						<Newline />
 					</Text>
+
 				</Text>
 			</Box>
-			<Text>{'}'}</Text>
+			<Text>{isEnd ? '}' : '},'}</Text>
 		</React.Fragment>
 	);
 };
