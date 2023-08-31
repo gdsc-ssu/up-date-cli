@@ -1,7 +1,7 @@
 # up-d4te
 
 > This is the recommend dating course in korea with CLI. <br>
-> This project is made by [ink](https://github.com/vadimdemedes/ink), you can own cli project with it.<br>
+> This project is made by [ink](https://github.com/vadimdemedes/ink), you can make your own cli project with it.<br>
 > You can see project repository [here](https://github.com/gdsc-ssu/up-date-cli).
 
 ## Install
