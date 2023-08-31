@@ -3,7 +3,7 @@ import {Text, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import data from './examples/location.js';
 import theme from './Theme.js';
-import {getSinglePlaceCheck} from './api/remote.js';
+import {getSinglePlaceCheck, getReviewCheck} from './api/remote.js';
 
 const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 	const [search, setSearch] = useState('');
@@ -77,7 +77,10 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 				// 지금은 임시로 Id값을 저장하지만, 나중에 서버 구축이 되면, 여기서 api call 해서 가게 상세정보를 state값에 저장한다.
 				getSinglePlaceCheck(storeId).then(res => {
 					setSingleShop(res.data.body);
-					setId(storeId);
+					getReviewCheck(storeId).then(res => {
+						setSingleShop(data => ({...data, reviews: res.data.body}));
+						setId(storeId);
+					});
 				});
 				setSearch('');
 				return;
