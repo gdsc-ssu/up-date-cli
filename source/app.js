@@ -11,14 +11,13 @@ const App = () => {
 	const [show, setShow] = useState(false);
 	const [spaceStep, setSpaceStep] = useState('');
 	const [isSelected, setIsSelected] = useState(true);
-	const [Id, setId] = useState('');
+	const [userId, setUserId] = useState('');
 
 	return (
 		<>
 			<Intro />
-			<Text>press "help" to see the list of commands</Text>
 			{show ? (
-				<Text color={theme.white}>Username : {Id}</Text>
+				<Text color={theme.white}>Username : {userId}</Text>
 			) : (
 				<SelectUserInfo
 					isSelected={isSelected}
@@ -29,7 +28,7 @@ const App = () => {
 			<Box marginY={1}>
 				{!show ? (
 					spaceStep == 'login' ? (
-						<Login setShow={setShow} Id={Id} setId={setId} />
+						<Login setShow={setShow} userId={userId} setId={setUserId} />
 					) : spaceStep == 'register' ? (
 						<Register
 							setIsSelected={setIsSelected}
@@ -40,7 +39,7 @@ const App = () => {
 					)
 				) : (
 					<Box flexDirection="column">
-						<SearchContainer />
+						<SearchContainer userId={userId} />
 					</Box>
 				)}
 			</Box>

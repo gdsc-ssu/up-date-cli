@@ -7,14 +7,7 @@ import App from './app.js';
 const cli = meow(
 	`
     Usage
-      $ up-d4te
-
-    Options
-      --name  Your name
-
-    Examples
-      $ up-d4te --name=Jane
-      Hello, Jane
+      $ up-date
   `,
 	{
 		importMeta: import.meta,

@@ -24,8 +24,8 @@ import theme from '../Theme.js';
  * 	reviews: [],
  * }
  */
-const ShopDetail = ({Id, setId}) => {
-	const data = {
+const ShopDetail = ({id, setId, userId}) => {
+	const initialData = {
 		id: '1',
 		title: 'The 5th Wave',
 		location: '서울시 동작구 상도로 369',
@@ -39,14 +39,19 @@ const ShopDetail = ({Id, setId}) => {
 			},
 		],
 		starRate: 4.5,
-		reviews: [],
+		reviews: [
+			{writer: 'hoyeon', content: 'good', starRate: 5},
+			{writer: 'hoyeon', content: '맛있네요', starRate: 3},
+		],
 	};
 
-	const starRateRounded = Math.round(data.starRate);
-
-	const starRateString = '⭐'.repeat(starRateRounded);
+	const [data, setData] = useState(initialData);
 
 	const [command, setCommand] = useState('');
+
+	const [isAddReview, setIsAddReview] = useState(false);
+	const [content, setContent] = useState('');
+	const [rate, setRate] = useState(5);
 
 	const onCommandSubmit = () => {
 		if (command === ':q') {
@@ -55,45 +60,131 @@ const ShopDetail = ({Id, setId}) => {
 		if (command === ':ar') {
 			// TODO : add review
 			setCommand('');
+			setIsAddReview(true);
 		}
 		if (command === ':lm') {
 			// TODO : load more reviews
+			const updatedReviews = [
+				...data.reviews,
+				{
+					writer: 'hoyeon',
+					content: 'content',
+					starRate: 3,
+				},
+			];
+			setData({...data, reviews: updatedReviews});
 			setCommand('');
 		}
 		// handle invalid command
 		setCommand('');
 	};
 
+	useInput((input, key) => {
+		if (isAddReview) {
+			if (key.upArrow && rate < 5) {
+				setRate(prevRate => prevRate + 1);
+			} else if (key.downArrow && rate > 1) {
+				setRate(prevRate => prevRate - 1);
+			}
+		}
+	});
+
+	const onReivewSubmit = () => {
+		// TODO : add review
+		setIsAddReview(false);
+		const updatedReviews = [
+			...data.reviews,
+			{
+				writer: userId,
+				content: content,
+				starRate: rate,
+			},
+		];
+
+		setData({...data, reviews: updatedReviews});
+		setContent('');
+		setRate(5);
+	};
+
+	return (
+		<>
+			{!isAddReview ? (
+				<>
+					<ShopView data={data} />
+					<Text color={'red'}>Commands</Text>
+					<Box>
+						<Text color={theme.commandFirst}>:q - quit</Text>
+						<Text> / </Text>
+						<Text color={theme.commandSecond}>:lm - load more reviews</Text>
+						<Text> / </Text>
+						<Text color={theme.commandThird}>:ar - add review</Text>
+					</Box>
+					<TextInput
+						value={command}
+						onChange={setCommand}
+						onSubmit={onCommandSubmit}
+					/>
+				</>
+			) : (
+				<>
+					<Text>
+						// Add review <Newline />
+						{'{'}
+					</Text>
+					<Box marginLeft={2} flexDirection="column">
+						<Box>
+							<Text>"content" : "</Text>
+							<TextInput
+								value={content}
+								onChange={setContent}
+								onSubmit={onReivewSubmit}
+							/>
+							<Text>"</Text>
+						</Box>
+						<Box>
+							<Text>"starRate" : {rate}</Text>
+						</Box>
+						<Box>
+							<Text>"helpText" : "⬆️ / ⬇️ to set rating"</Text>
+						</Box>
+					</Box>
+					<Text>{'}'}</Text>
+				</>
+			)}
+		</>
+	);
+};
+
+const ShopView = ({data}) => {
+	const starRateString = '⭐'.repeat(Math.round(data.starRate));
+
 	return (
 		<>
 			<Text>{'{'}</Text>
-			<Box marginLeft={2}>
-				<Text>
-					<Text>
-						"id" : "{data.id}",
-						<Newline />
-					</Text>
-					<Text>
-						"title" : "{data.title}",
-						<Newline />
-					</Text>
-					<Text marginLeft={2}>
-						"location" : "{data.location}",
-						<Newline />
-					</Text>
-					<Text>
-						"nearStation" : "{data.nearStation}",
-						<Newline />
-					</Text>
+			<Box marginLeft={2} flexDirection="column">
+				<Box>
+					<Text>"id" : "{data.id}",</Text>
+				</Box>
+				<Box>
+					<Text>"title" : "{data.title}",</Text>
+				</Box>
+				<Box>
+					<Text marginLeft={2}>"location" : "{data.location}",</Text>
+				</Box>
+				<Box>
+					<Text>"nearStation" : "{data.nearStation}",</Text>
+				</Box>
+				<Box>
 					<Text>
 						"openTime" : "{data.openTime}" - "{data.closeTime}",
-						<Newline />
 					</Text>
+				</Box>
+				<Box>
 					<Text>
 						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
-							<Text key={item.name}>
+							<Text>
 								{' '}
 								{'{'} "{item.name}" : {item.price} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
@@ -101,42 +192,52 @@ const ShopDetail = ({Id, setId}) => {
 							</Text>
 						))}
 						{']'},
-						<Newline />
 					</Text>
+				</Box>
+				<Box>
 					<Text>
 						"starRate" : "{starRateString}({data.starRate})",
-						<Newline />
 					</Text>
-					<Text>
-						"reviews" : {'['}
-						{data.reviews.length == !0 ? <Newline /> : <></>}
-						{data.reviews.map((item, index, array) => (
-							<Text key={item.id}>
-								{' '}
-								{'{'} "{item.writer}" : "{item.content} ({item.starRate})" {'}'}
-								{index !== array.length - 1 ? ',' : ''}
-								<Newline />
-							</Text>
-						))}
-						{']'}
-					</Text>
-				</Text>
+				</Box>
+				{data.reviews.length > 0 ? (
+					<Box flexDirection="column">
+						<Box>
+							<Text>"reviews" : {'['}</Text>
+						</Box>
+						<Box flexDirection="column">
+							{data.reviews.map((item, index) => (
+								<ReviewView
+									writer={item.writer}
+									content={item.content}
+									starRate={item.starRate}
+									isEnd={index !== data.reviews.length - 1}
+								/>
+							))}
+						</Box>
+						<Box>
+							<Text>{']'}</Text>
+						</Box>
+					</Box>
+				) : (
+					<Box>
+						<Text>"reviews" : {'[]'}</Text>
+					</Box>
+				)}
 			</Box>
 			<Text>{'}'}</Text>
-			<Text color={'red'}>Commands</Text>
-			<Box>
-				<Text color={theme.commandFirst}>:q - quit</Text>
-				<Spacer />
-				<Text color={theme.commandSecond}>:lm - load more reviews </Text>
-				<Spacer />
-				<Text color={theme.commandThird}>:ar - add review</Text>
-			</Box>
-			<TextInput
-				value={command}
-				onChange={setCommand}
-				onSubmit={onCommandSubmit}
-			/>
 		</>
 	);
 };
+
+const ReviewView = ({writer, content, starRate, isEnd}) => {
+	return (
+		<Box marginLeft={2}>
+			<Text>
+				{'{'} "{writer}" : "{content} ({starRate})" {'}'}
+				{isEnd ? ',' : ''}
+			</Text>
+		</Box>
+	);
+};
+
 export default ShopDetail;
