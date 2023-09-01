@@ -277,12 +277,17 @@ const ShopPost = ({userId, category, setStoreName}) => {
 		}
 		const response = await fetchKakaoShops(shopTitle, category);
 		setKakaoShops(response.data['documents']);
-		setLatitude(response.data['documents'][0].y);
-		setLongitude(response.data['documents'][0].x);
-		setPhoneNumber(response.data['documents'][0].phone);
-		setPlaceUrl(response.data['documents'][0].place_url);
+		if (response.data['documents'].length == 0) return;
 		setSelectedShopIndex(0);
 	};
+
+	React.useEffect(() => {
+		if (kakaoShops.length == 0) return;
+		setLatitude(kakaoShops[selectedShopIndex].y);
+		setLongitude(kakaoShops[selectedShopIndex].x);
+		setPhoneNumber(kakaoShops[selectedShopIndex].phone);
+		setPlaceUrl(kakaoShops[selectedShopIndex].place_url);
+	}, [selectedShopIndex]);
 
 	React.useEffect(() => {
 		searchKakaoShops();
