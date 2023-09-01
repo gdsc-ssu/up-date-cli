@@ -10,13 +10,17 @@
 
 ## 기능 소개
 
-1. 주변 핫플레이스 검색 <br>
-   <img width="149" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/1cdfbcd1-5057-46d9-830e-8894c5328c65"><br> 2.특정 역 주변 데이트 코스 추천 <br>
-   <img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/07eb658e-618c-4838-afe2-d9f0a97c098e">
-   <img width="229" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/41c4e059-71d9-447a-aec5-909d6197d000"> <br>
-2. 새로운 가게 등록 <br>
-   <img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/74fd8af7-2c7d-4697-9666-286aefdd46e5"> <br>
-3. 특정 가게 상세 정보 확인 하기 <br>
+### 1. 주변 핫플레이스 검색
+<img width="149" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/1cdfbcd1-5057-46d9-830e-8894c5328c65">
+
+### 2.특정 역 주변 데이트 코스 추천
+<img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/07eb658e-618c-4838-afe2-d9f0a97c098e">
+<img width="229" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/41c4e059-71d9-447a-aec5-909d6197d000"> <br>
+
+### 3. 새로운 가게 등록
+<img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/74fd8af7-2c7d-4697-9666-286aefdd46e5"> <br>
+
+### 4. 특정 가게 상세 정보 확인 하기 
    <img width="293" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/87494ffc-53a4-422b-96fe-24104a9b539d">
 
 ## 기술 소개
