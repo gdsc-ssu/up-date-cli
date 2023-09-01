@@ -10,7 +10,6 @@ const ListShop = ({shops, setShops, setType}) => {
 	let last = 3;
 	const [confirmCommand, setConfirmCommand] = useState('');
 	const loadMore = () => {
-		// if (shops)
 		setShops([...shops, ...shoplist.slice(first + 3, last + 3)]);
 	};
 

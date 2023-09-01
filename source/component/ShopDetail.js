@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, Newline, Box, Spacer, useInput} from 'ink';
+import {Text, Newline, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
 
@@ -16,10 +16,10 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const onCommandSubmit = () => {
 		if (command === ':q') {
 			setId(0);
+			return;
 		}
 		if (command === ':ar') {
 			// TODO : add review
-			setCommand('');
 			setIsAddReview(true);
 		}
 		if (command === ':lm') {
@@ -33,7 +33,6 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 				},
 			];
 			setData({...data, reviews: updatedReviews});
-			setCommand('');
 		}
 		// handle invalid command
 		setCommand('');
