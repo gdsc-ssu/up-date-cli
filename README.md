@@ -23,12 +23,10 @@
 
 ## 팀원 소개 
 
-
-|:<img width="153" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/a4583445-ddc6-4980-aae5-a4acb58ae473">:
-|:<img width="154" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/60b3cc1d-4c26-4f1f-ae4a-22f2bb0774b2">:
-|:<img width="151" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/638a4d44-68d9-4568-8b74-9ff622f76010">:
-|:<img width="154" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/302dd6cf-4cef-4fd4-9bf9-62357094989b">:|
-|심상현|최호연|장환곤|나세빈|
+|<img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/a4583445-ddc6-4980-aae5-a4acb58ae473">|<img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/60b3cc1d-4c26-4f1f-ae4a-22f2bb0774b2">|<img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/638a4d44-68d9-4568-8b74-9ff622f76010">|<img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/302dd6cf-4cef-4fd4-9bf9-62357094989b">|
+|--------|--------|--------|--------|
+| 심상현 | 최호연 | 장환곤 | 나세빈 |
+| 반가워요 | 안아줘요 | 사랑해요 | 연락줘요 |
 
 
 ## 설치하는 방법
