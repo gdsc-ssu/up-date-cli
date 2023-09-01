@@ -36,6 +36,9 @@
 | 반가워요                                                                                                                         | 안아줘요                                                                                                                         | 사랑해요                                                                                                                         | 연락줘요                                                                                                                         |
 
 ## How to install?
+You must install Node version 16 or higher to operate correctly.
+
+If you are using iTerm in the terminal, you may experience issues such as the screen flickering. If you are using a Mac, please run it in the default terminal.
 
 ```bash
 $ npm install --global up-d4te
@@ -49,14 +52,14 @@ $ up-d4te
 
 ## For Developer
 
-for install packages and run dev local server
+To install `up-d4te` dependency and set up the local development environment, you need to enter the following command.
 
 ```bash
 $ npm ci
 $ npm run dev
 ```
 
-and run in another terminal
+And please enter the following command.
 
 ```bash
 $ npm start
