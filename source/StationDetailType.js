@@ -43,11 +43,12 @@ const StationDetailType = ({
 			getAllPlaceCheck(1, station).then(res => {
 				if (res.data['statusCode'] == 404) {
 					setShops([]);
+					setStation('');
 				} else {
 					setShops(res.data.body);
+					setStation('');
 				}
 			});
-			setStation('');
 		}
 	});
 	return (
