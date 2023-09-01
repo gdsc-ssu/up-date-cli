@@ -45,6 +45,9 @@ const postRegister = (userId, eMail) =>
 		email: eMail,
 	});
 
+const postReview = (userId, placeId, content, star) =>
+	UpdateAxios.post(`review/user/${userId}/place/${placeId}`, {content, star});
+
 export {
 	getAllPlaceCheck,
 	getSinglePlaceCheck,
@@ -52,4 +55,5 @@ export {
 	getLoginCheck,
 	postRegister,
 	getReviewCheck,
+	postReview,
 };
