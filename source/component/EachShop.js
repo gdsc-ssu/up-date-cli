@@ -26,14 +26,18 @@ const EachShop = ({data, key, isEnd}) => {
 					<Text>
 						"menu" : {'['}
 						<Newline />
-						{data.menu.map((item, index, array) => (
-							<Text key={index}>
-								{' '}
-								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
-								{index !== array.length - 1 ? ',' : ''}
-								<Newline />
-							</Text>
-						))}
+						{data.menu ? (
+							data.menu.map((item, index, array) => (
+								<Text key={index}>
+									{' '}
+									{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
+									{index !== array.length - 1 ? ',' : ''}
+									<Newline />
+								</Text>
+							))
+						) : (
+							<Text>메뉴가 없습니다.</Text>
+						)}
 						{']'},
 						<Newline />
 					</Text>

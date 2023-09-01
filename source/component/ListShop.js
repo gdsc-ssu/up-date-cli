@@ -6,17 +6,21 @@ import EachShop from './EachShop.js';
 import shoplist from '../examples/shoplist.js';
 
 const ListShop = ({shops, setShops, setType}) => {
-	let first = 0;
-	let last = 3;
 	const [confirmCommand, setConfirmCommand] = useState('');
+	const [shop, setShop] = useState(shops.slice(0, 3));
+	const [endMessage, setEndMessage] = useState(false);
 	const loadMore = () => {
-		setShops([...shops, ...shoplist.slice(first + 3, last + 3)]);
+		setShop([...shop, ...shops.slice(shop.length, shop.length + 1)]);
+
+		if (shops.length === shop.length) {
+			setEndMessage(true);
+		}
 	};
 
 	return (
 		<>
 			<Box marginY={1} flexDirection="column">
-				{shops.length === 0 ? (
+				{shop.length === 0 ? (
 					<Box flexDirection="column">
 						<Text>Status code: 404</Text>
 						<Text color={theme.red}>검색 결과가 없습니다.</Text>
@@ -25,16 +29,21 @@ const ListShop = ({shops, setShops, setType}) => {
 					<Box flexDirection="column">
 						<Text>{'['}</Text>
 						<Box marginLeft={2} flexDirection="column">
-							{shops.map((data, index) => (
-								<EachShop data={data} isEnd={index === shops.length - 1} />
-							))}
+							{shop.length !== 0 ? (
+								shop.map((data, index) => (
+									<EachShop data={data} isEnd={index === shops.length - 1} />
+								))
+							) : (
+								<Text>리스트가 없습니다.</Text>
+							)}
 						</Box>
 						<Text>{']'}</Text>
 					</Box>
 				)}
-
+				<Newline />
+				<Text>{endMessage ? '더 이상 불러올 리스트가 없습니다' : ''}</Text>
+				<Newline />
 				<Box flexDirection="column">
-					<Spacer />
 					<Text color={theme.red}>
 						<Newline />
 						Commands
@@ -42,7 +51,7 @@ const ListShop = ({shops, setShops, setType}) => {
 					<Box>
 						<Text color={theme.commandFirst}>:q - quit</Text>
 						<Text> / </Text>
-						<Text color={theme.commandSecond}>:lm - load more reviews</Text>
+						<Text color={theme.commandSecond}>:lm - load more store</Text>
 					</Box>
 					<TextInput
 						value={confirmCommand}

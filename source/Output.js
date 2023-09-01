@@ -10,8 +10,8 @@ const Output = ({list}) => {
 	const check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 	return (
 		<Box marginY={1} flexDirection="column">
-			{list.map(item => (
-				<>
+			{list.map((item, index) => (
+				<Box key={index} flexDirection="column">
 					<Text color={theme.purple}>$ {item[1]} </Text>
 					<Newline />
 					{item[1] === 'ls' ? (
@@ -21,7 +21,7 @@ const Output = ({list}) => {
 					) : (
 						<Text color={theme.red}>{item[0][0]}</Text>
 					)}
-				</>
+				</Box>
 			))}
 		</Box>
 	);

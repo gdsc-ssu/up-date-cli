@@ -75,8 +75,12 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 			}
 			if (search.startsWith('vi ')) {
 				let storeId = search.slice(3, search.length);
-				setlist(list => [...list, [[], search]]);
 				getSinglePlaceCheck(storeId).then(res => {
+					if (res.data['statusCode'] == 404) {
+						setlist(list => [...list, [["해당하는 가게가 없습니다."], search]]);
+						setId(0);
+						return;
+					}
 					setSingleShop(res.data.body);
 					getReviewCheck(storeId).then(res => {
 						setSingleShop(data => ({...data, reviews: res.data.body}));
