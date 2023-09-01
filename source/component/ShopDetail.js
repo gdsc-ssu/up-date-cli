@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import {Text, Newline, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
+import {postReview} from '../api/remote.js';
 
 const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const [data, setData] = useState(singleShop);
 
+	const [reviewlist, setReviewlist] = useState(singleShop.reviews.slice(0, 3));
 	const [command, setCommand] = useState('');
-
+	const [endMessage, setEndMessage] = useState(false);
 	const [isAddReview, setIsAddReview] = useState(false);
 
 	const [content, setContent] = useState('');
@@ -24,15 +26,14 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 		}
 		if (command === ':lm') {
 			// TODO : load more reviews
-			const updatedReviews = [
-				...data.reviews,
-				{
-					userId: 'hoyeon',
-					content: 'content',
-					star: 3,
-				},
-			];
-			setData({...data, reviews: updatedReviews});
+			setReviewlist([
+				...reviewlist,
+				...singleShop.reviews.slice(reviewlist.length, reviewlist.length + 1),
+			]);
+
+			if (reviewlist.length === singleShop.reviews.length) {
+				setEndMessage(true);
+			}
 		}
 		// handle invalid command
 		setCommand('');
@@ -50,6 +51,8 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 
 	const onReivewSubmit = () => {
 		// TODO : add review
+
+		postReview(userId, id, content, star);
 		const updatedReviews = [
 			...data.reviews,
 			{
@@ -58,7 +61,6 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 				star: star,
 			},
 		];
-
 		setData({...data, reviews: updatedReviews});
 		setContent('');
 		setStar(5);
@@ -69,7 +71,11 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 		<>
 			{!isAddReview ? (
 				<>
-					<ShopView data={data} />
+					<ShopView
+						data={data}
+						reviewlist={reviewlist}
+						endMessage={endMessage}
+					/>
 					<Text color={'red'}>Commands</Text>
 					<Box>
 						<Text color={theme.commandFirst}>:q - quit</Text>
@@ -114,7 +120,7 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 	);
 };
 
-const ShopView = ({data}) => {
+const ShopView = ({data, reviewlist, endMessage}) => {
 	const starRateString = '⭐'.repeat(Math.round(data.averageStar));
 
 	return (
@@ -158,22 +164,23 @@ const ShopView = ({data}) => {
 						"starRate" : "{starRateString} ({data.averageStar})",
 					</Text>
 				</Box>
-				{data.reviews.length > 0 ? (
+				{reviewlist.length > 0 ? (
 					<Box flexDirection="column">
 						<Box>
 							<Text>"reviews" : {'['}</Text>
 						</Box>
 						<Box flexDirection="column">
-							{data.reviews.map((item, index) => (
+							{reviewlist.map((item, index) => (
 								<ReviewView
 									writer={item.userId}
 									content={item.content}
 									starRate={item.star}
-									isEnd={index !== data.reviews.length - 1}
+									isEnd={index !== reviewlist.length - 1}
 								/>
 							))}
 						</Box>
 						<Box>
+							<Text>{endMessage ? '더 이상 리뷰가 없어욧!' : ''}</Text>
 							<Text>{']'}</Text>
 						</Box>
 					</Box>
