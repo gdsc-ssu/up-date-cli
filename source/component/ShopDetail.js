@@ -53,15 +53,23 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 		// TODO : add review
 
 		postReview(userId, id, content, star);
-		const updatedReviews = [
-			...data.reviews,
+		// const updatedReviews = [
+		// 	...data.reviews,
+		// 	{
+		// 		userId: userId,
+		// 		content: content,
+		// 		star: star,
+		// 	},
+		// ];
+		// setData({...data, reviews: updatedReviews});
+		setReviewlist([
+			...reviewlist,
 			{
 				userId: userId,
 				content: content,
 				star: star,
 			},
-		];
-		setData({...data, reviews: updatedReviews});
+		]);
 		setContent('');
 		setStar(5);
 		setIsAddReview(false);
