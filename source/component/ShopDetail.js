@@ -2,36 +2,16 @@ import React, {useState} from 'react';
 import {Text, Newline, Box, Spacer, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
-import SingleShop from './SingleShop.js';
 
 const ShopDetail = ({id, setId, userId, singleShop}) => {
-	const initialData = {
-		id: '1',
-		title: 'The 5th Wave',
-		location: '서울시 동작구 상도로 369',
-		nearStation: '상도역',
-		openTime: '09:00',
-		closeTime: '22:00',
-		menu: [
-			{
-				name: '카페라떼',
-				price: 4000,
-			},
-		],
-		starRate: 4.5,
-		reviews: [
-			{writer: 'hoyeon', content: 'good', starRate: 5},
-			{writer: 'hoyeon', content: '맛있네요', starRate: 3},
-		],
-	};
-
 	const [data, setData] = useState(singleShop);
 
 	const [command, setCommand] = useState('');
 
 	const [isAddReview, setIsAddReview] = useState(false);
+
 	const [content, setContent] = useState('');
-	const [rate, setRate] = useState(5);
+	const [star, setStar] = useState(5);
 
 	const onCommandSubmit = () => {
 		if (command === ':q') {
@@ -47,9 +27,9 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 			const updatedReviews = [
 				...data.reviews,
 				{
-					writer: 'hoyeon',
+					userId: 'hoyeon',
 					content: 'content',
-					starRate: 3,
+					star: 3,
 				},
 			];
 			setData({...data, reviews: updatedReviews});
@@ -61,29 +41,29 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 
 	useInput((input, key) => {
 		if (isAddReview) {
-			if (key.upArrow && rate < 5) {
-				setRate(prevRate => prevRate + 1);
-			} else if (key.downArrow && rate > 1) {
-				setRate(prevRate => prevRate - 1);
+			if (key.upArrow && star < 5) {
+				setStar(prevRate => prevRate + 1);
+			} else if (key.downArrow && star > 1) {
+				setStar(prevRate => prevRate - 1);
 			}
 		}
 	});
 
 	const onReivewSubmit = () => {
 		// TODO : add review
-		setIsAddReview(false);
 		const updatedReviews = [
 			...data.reviews,
 			{
-				writer: userId,
+				userId: userId,
 				content: content,
-				starRate: rate,
+				star: star,
 			},
 		];
 
 		setData({...data, reviews: updatedReviews});
 		setContent('');
-		setRate(5);
+		setStar(5);
+		setIsAddReview(false);
 	};
 
 	return (
@@ -122,7 +102,7 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 							<Text>"</Text>
 						</Box>
 						<Box>
-							<Text>"starRate" : {rate}</Text>
+							<Text>"starRate" : {star}</Text>
 						</Box>
 						<Box>
 							<Text>"helpText" : "⬆️ / ⬇️ to set rating"</Text>
@@ -165,7 +145,7 @@ const ShopView = ({data}) => {
 						<Newline />
 						{data.menu.map((item, index, array) => (
 							<Text>
-								{' '}
+								{'  '}
 								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
 								<Newline />
@@ -176,7 +156,7 @@ const ShopView = ({data}) => {
 				</Box>
 				<Box>
 					<Text>
-						"starRate" : "{starRateString}({data.averageStar})",
+						"starRate" : "{starRateString} ({data.averageStar})",
 					</Text>
 				</Box>
 				{data.reviews.length > 0 ? (

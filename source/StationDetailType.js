@@ -41,7 +41,11 @@ const StationDetailType = ({
 				setlist(list => [...list, [[], `${station} 술집`]]);
 			}
 			getAllPlaceCheck(1, station).then(res => {
-				setShops(res.data.body); // shoplist.slice(first, last)
+				if (res.data['statusCode'] == 404) {
+					setShops([]);
+				} else {
+					setShops(res.data.body);
+				}
 			});
 			setStation('');
 		}

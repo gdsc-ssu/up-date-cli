@@ -44,7 +44,7 @@ const SearchContainer = ({userId}) => {
 					singleShop={singleShop}
 				/>
 			) : storeName ? (
-				<ShopPost setStoreName={setStoreName} />
+				<ShopPost userId={userId} setStoreName={setStoreName} />
 			) : (
 				<Search
 					setlist={setlist}

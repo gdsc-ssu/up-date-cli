@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, Box, useInput, Newline, Spacer} from 'ink';
 import TextInput from 'ink-text-input';
 import {fetchKakaoShops} from '../api/kakao.js';
+import {postShop} from '../api/remote.js';
 
 const dayContainer = (isFocused, isSelected, day, key) => {
 	var color = 'white';
@@ -41,7 +42,7 @@ const editContainer = (isFocused, text, key) => {
  * 카테고리는 cafe, restaurant로 구분된다.
  * 이외의 카테고리나 넣지 않으면 모든 카테고리에서 검색한다.
  */
-const ShopPost = ({category, setStoreName}) => {
+const ShopPost = ({userId, category, setStoreName}) => {
 	const [lastKeyPress, setLastKeyPress] = useState(null);
 
 	const [inputStep, setInputStep] = useState(0); // 0: title, 1: openTime, 2: closeTime
@@ -69,6 +70,12 @@ const ShopPost = ({category, setStoreName}) => {
 	const [confirmCommand, setConfirmCommand] = useState(''); // 입력 확인
 	const [isEdit, setIsEdit] = useState(false); // 입력 수정
 	const editList = ['title', 'openDay', 'openTime', 'closeTime', 'menu', '']; // 수정 가능한 목록
+
+	//Kakao map api data
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [latitude, setLatitude] = useState(0);
+	const [longitude, setLongitude] = useState(0);
+	const [placeUrl, setPlaceUrl] = useState('');
 
 	useInput((input, key) => {
 		if (!key) return;
@@ -270,6 +277,10 @@ const ShopPost = ({category, setStoreName}) => {
 		}
 		const response = await fetchKakaoShops(shopTitle, category);
 		setKakaoShops(response.data['documents']);
+		setLatitude(response.data['documents'][0].y);
+		setLongitude(response.data['documents'][0].x);
+		setPhoneNumber(response.data['documents'][0].phone);
+		setPlaceUrl(response.data['documents'][0].place_url);
 		setSelectedShopIndex(0);
 	};
 
@@ -460,7 +471,26 @@ const ShopPost = ({category, setStoreName}) => {
 							focus={!isEdit}
 							onSubmit={() => {
 								if (confirmCommand == ':wq') {
-									//TODO : 저장하고 종료
+									postShop(
+										userId,
+										shopTitle,
+										phoneNumber,
+										kakaoShops[selectedShopIndex].address_name,
+										`${openTimeHour
+											.toString()
+											.padStart(2, '0')}:${openTimeMinute
+											.toString()
+											.padStart(2, '0')}`,
+										`${closeTimeHour
+											.toString()
+											.padStart(2, '0')}:${closeTimeMinute
+											.toString()
+											.padStart(2, '0')}`,
+										latitude,
+										longitude,
+										placeUrl,
+										menuList,
+									);
 									setStoreName('');
 								} else if (confirmCommand == ':q!') {
 									setStoreName('');
