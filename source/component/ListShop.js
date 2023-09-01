@@ -44,7 +44,6 @@ const ListShop = ({shops, setShops, setType}) => {
 				<Text>{endMessage ? '더 이상 불러올 리스트가 없습니다' : ''}</Text>
 				<Newline />
 				<Box flexDirection="column">
-					<Spacer />
 					<Text color={theme.red}>
 						<Newline />
 						Commands

@@ -25,7 +25,6 @@ const SearchContainer = ({userId}) => {
 					<Output list={list} />
 				) /* vi 창 들어기서 Id 값 다시 초기화 해줘야함.!*/
 			}
-			{/* {aaa ? <ShopDetail /> : ''} */}
 			{station ? ( // 타이핑된 역의 이름이 없을 경우, 입력 창 유지, 입력했을시, 맛집, 액티비티, 선택창 나옴.
 				<StationDetailType
 					setType={setType}

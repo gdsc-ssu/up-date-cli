@@ -25,15 +25,10 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 			setIsAddReview(true);
 		}
 		if (command === ':lm') {
-			// TODO : load more reviews
 			setReviewlist([
 				...reviewlist,
 				...singleShop.reviews.slice(reviewlist.length, reviewlist.length + 1),
 			]);
-
-			if (reviewlist.length === singleShop.reviews.length) {
-				setEndMessage(true);
-			}
 		}
 		// handle invalid command
 		setCommand('');
@@ -188,7 +183,6 @@ const ShopView = ({data, reviewlist, endMessage}) => {
 							))}
 						</Box>
 						<Box>
-							<Text>{endMessage ? '더 이상 리뷰가 없어욧!' : ''}</Text>
 							<Text>{']'}</Text>
 						</Box>
 					</Box>
