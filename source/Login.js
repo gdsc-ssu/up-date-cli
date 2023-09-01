@@ -20,16 +20,15 @@ const Login = ({userId, setId, setShow}) => {
 				let tempUserId = userId;
 
 				getLoginCheck(userId, eMail).then(res => {
-					if (res.data['statusCode'] == 200) {
-						setShow(true);
-						// 로그인 중 아이디 변경 방지
+					if (res.data['statusCode'] === 200) {
 						setId(tempUserId);
-					} else {
-						setId('');
-						setEMail('');
-						setLoginSuccess(false);
-						setIsLoading(false);
+						setShow(true);
+						return;
 					}
+					setId('');
+					setEMail('');
+					setLoginSuccess(false);
+					setIsLoading(false);
 				});
 			}
 
