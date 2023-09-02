@@ -192,11 +192,8 @@ const ShopPost = ({userId, category, setStoreName}) => {
 		}
 
 		if (inputStep == 4) {
-			if (key.tab || key.rightArrow) {
+			if (key.tab) {
 				setFocus((focus + 1) % 2);
-			}
-			if (key.leftArrow) {
-				setFocus((focus - 1 + 2) % 2);
 			}
 
 			if (key.return) {
