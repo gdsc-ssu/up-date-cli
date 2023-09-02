@@ -114,7 +114,12 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 				return;
 			}
 			if(search === 'girlfriend') {
-				setlist(list => [...list, [['Not Found.'], search]]);
+				setlist(list => [...list, [['404 Not Found.'], search]]);
+				setSearch('');
+				return;
+			}
+			if(search === 'boyfriend') {
+				setlist(list => [...list, [['404 Not Found.'], search]]);
 				setSearch('');
 				return;
 			}

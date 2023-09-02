@@ -141,7 +141,7 @@ const ShopView = ({data, reviewlist}) => {
 						"menu" : {'['}
 						<Newline />
 						{data.menu.map((item, index, array) => (
-							<Text>
+							<Text key={index}>
 								{'  '}
 								{'{'} "{item.menuName}" : {item.menuPrice} {'}'}
 								{index !== array.length - 1 ? ',' : ''}
@@ -164,6 +164,7 @@ const ShopView = ({data, reviewlist}) => {
 						<Box flexDirection="column">
 							{reviewlist.map((item, index) => (
 								<ReviewView
+									key={index}
 									writer={item.userId}
 									content={item.content}
 									starRate={item.star}
