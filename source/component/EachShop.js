@@ -30,7 +30,7 @@ const EachShop = ({data, key, isEnd}) => {
 								{'['}
 								<Newline />
 								{data.menu.map((item, index, array) => (
-									<Text>
+									<Text key={index}>
 										{' '}
 										{'{'} "{item.name}" : {item.price} {'}'}
 										{index !== array.length - 1 ? ',' : ''}
