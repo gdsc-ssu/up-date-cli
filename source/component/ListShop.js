@@ -25,7 +25,7 @@ const ListShop = ({shops, setShops, setType}) => {
 						<Text>{'{'}</Text>
 						<Text> "Status code": 404</Text>
 						<Text> "Description": "검색 결과가 없습니다."</Text>
-						<Text>{'{'}</Text>
+						<Text>{'}'}</Text>
 					</Box>
 				) : (
 					<Box flexDirection="column">
