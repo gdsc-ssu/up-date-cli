@@ -113,6 +113,11 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 				setSearch('');
 				return;
 			}
+			if(search === 'girlfriend') {
+				setlist(list => [...list, [['Not Found.'], search]]);
+				setSearch('');
+				return;
+			}
 			const suggestion = suggestCommand(search);
 			setlist(list => [...list, [[suggestion], search]]);
 			setSearch('');

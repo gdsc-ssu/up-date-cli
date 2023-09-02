@@ -481,7 +481,7 @@ const ShopPost = ({userId, category, setStoreName}) => {
 								if (confirmCommand == ':wq') {
 									postShop(
 										userId,
-										shopTitle,
+										kakaoShops[selectedShopIndex].place_name,
 										phoneNumber,
 										kakaoShops[selectedShopIndex].address_name,
 										`${openTimeHour
