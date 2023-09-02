@@ -261,14 +261,14 @@ const ShopPost = ({userId, category, setStoreName}) => {
 
 	// 메뉴 추가
 	const addMenu = () => {
-        setMenuList([
-            ...menuList,
-            {name: menuName.split('\\')[0].trim(), price: menuPrice},
-        ]);
-        setMenuName(''); // 입력 필드 초기화
-        setMenuPrice(0); // 입력 필드 초기화
-        setFocus(0); // 포커스 초기화
-    };
+		setMenuList([
+			...menuList,
+			{name: menuName.split('\\')[0].trim(), price: menuPrice},
+		]);
+		setMenuName(''); // 입력 필드 초기화
+		setMenuPrice(0); // 입력 필드 초기화
+		setFocus(0); // 포커스 초기화
+	};
 
 	const searchKakaoShops = async () => {
 		if (!shopTitle.length) {

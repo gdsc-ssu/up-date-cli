@@ -22,10 +22,10 @@ const ListShop = ({shops, setShops, setType}) => {
 			<Box marginY={1} flexDirection="column">
 				{shop.length === 0 ? (
 					<Box flexDirection="column">
-						<Text>{"{"}</Text>
-						<Text>  "Status code": 404</Text>
-						<Text>  "Description": "검색 결과가 없습니다."</Text>
-						<Text>{"{"}</Text>
+						<Text>{'{'}</Text>
+						<Text> "Status code": 404</Text>
+						<Text> "Description": "검색 결과가 없습니다."</Text>
+						<Text>{'{'}</Text>
 					</Box>
 				) : (
 					<Box flexDirection="column">

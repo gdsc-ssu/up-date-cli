@@ -77,7 +77,7 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 				let storeId = search.slice(3, search.length);
 				getSinglePlaceCheck(storeId).then(res => {
 					if (res.data['statusCode'] == 404) {
-						setlist(list => [...list, [["해당하는 가게가 없습니다."], search]]);
+						setlist(list => [...list, [['해당하는 가게가 없습니다.'], search]]);
 						setId(0);
 						return;
 					}

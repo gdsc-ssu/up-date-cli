@@ -11,16 +11,20 @@
 ## 기능 소개
 
 ### 1. 주변 핫플레이스 검색
+
 <img width="149" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/1cdfbcd1-5057-46d9-830e-8894c5328c65">
 
 ### 2.특정 역 주변 데이트 코스 추천
+
 <img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/07eb658e-618c-4838-afe2-d9f0a97c098e">
 <img width="229" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/41c4e059-71d9-447a-aec5-909d6197d000"> <br>
 
 ### 3. 새로운 가게 등록
+
 <img width="217" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/74fd8af7-2c7d-4697-9666-286aefdd46e5"> <br>
 
-### 4. 특정 가게 상세 정보 확인 하기 
+### 4. 특정 가게 상세 정보 확인 하기
+
    <img width="293" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/87494ffc-53a4-422b-96fe-24104a9b539d">
 
 ## 기술 소개
@@ -30,12 +34,13 @@
 ## 팀원 소개
 
 | <img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/a4583445-ddc6-4980-aae5-a4acb58ae473"> | <img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/60b3cc1d-4c26-4f1f-ae4a-22f2bb0774b2"> | <img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/638a4d44-68d9-4568-8b74-9ff622f76010"> | <img width="155" alt="image" src="https://github.com/gdsc-ssu/up-date-cli/assets/94737768/302dd6cf-4cef-4fd4-9bf9-62357094989b"> |
-| --- | --- | --- | --- |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | 심상현                                                                                                                           | 최호연                                                                                                                           | 장환곤                                                                                                                           | 나세빈                                                                                                                           |
 | cli 패키지 개발                                                                                                                  | cli 패키지 개발                                                                                                                  | 백엔드 개발                                                                                                                      | 백엔드 개발                                                                                                                      |
 | 반가워요                                                                                                                         | 안아줘요                                                                                                                         | 사랑해요                                                                                                                         | 연락줘요                                                                                                                         |
 
 ## How to install?
+
 You must install Node version 16 or higher to operate correctly.
 
 If you are using iTerm in the terminal, you may experience issues such as the screen flickering. If you are using a Mac, please run it in the default terminal.
