@@ -278,6 +278,10 @@ const ShopPost = ({userId, category, setStoreName}) => {
 		const response = await fetchKakaoShops(shopTitle, category);
 		setKakaoShops(response.data['documents']);
 		if (response.data['documents'].length == 0) return;
+		setLatitude(kakaoShops[0].y);
+		setLongitude(kakaoShops[0].x);
+		setPhoneNumber(kakaoShops[0].phone);
+		setPlaceUrl(kakaoShops[0].place_url);
 		setSelectedShopIndex(0);
 	};
 
