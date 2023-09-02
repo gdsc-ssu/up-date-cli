@@ -432,7 +432,6 @@ const ShopPost = ({userId, category, setStoreName}) => {
 								</Box>
 							</Box>
 						) : (
-							//TODO : 수정 컴포넌트 새로 빼기
 							<Box flexDirection="column" marginLeft={2}>
 								{menuList.map((menu, index) => (
 									<Box key={index}>

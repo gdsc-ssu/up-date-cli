@@ -82,7 +82,7 @@ const Search = ({setlist, setStation, setId, setStoreName, setSingleShop}) => {
 						return;
 					}
 					setSingleShop(res.data.body);
-					getReviewCheck(storeId).then(res => {
+					getReviewCheck(storeId, 1).then(res => {
 						setSingleShop(data => ({...data, reviews: res.data.body}));
 						setId(storeId);
 					});

@@ -3,13 +3,15 @@ import {Text, Newline, Box, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import theme from '../Theme.js';
 import {postReview} from '../api/remote.js';
+import {getReviewCheck} from '../api/remote.js';
 
 const ShopDetail = ({id, setId, userId, singleShop}) => {
 	const [data, setData] = useState(singleShop);
 
-	const [reviewlist, setReviewlist] = useState(singleShop.reviews.slice(0, 3));
+	const [page, setPage] = useState(1);
+
+	const [reviewlist, setReviewlist] = useState(singleShop.reviews);
 	const [command, setCommand] = useState('');
-	const [endMessage, setEndMessage] = useState(false);
 	const [isAddReview, setIsAddReview] = useState(false);
 
 	const [content, setContent] = useState('');
@@ -21,14 +23,13 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 			return;
 		}
 		if (command === ':ar') {
-			// TODO : add review
 			setIsAddReview(true);
 		}
 		if (command === ':lm') {
-			setReviewlist([
-				...reviewlist,
-				...singleShop.reviews.slice(reviewlist.length, reviewlist.length + 1),
-			]);
+			getReviewCheck(singleShop.id, page + 1).then(res => {
+				setReviewlist([...reviewlist, ...res.data.body]);
+				setPage(page + 1);
+			});
 		}
 		// handle invalid command
 		setCommand('');
@@ -45,18 +46,7 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 	});
 
 	const onReivewSubmit = () => {
-		// TODO : add review
-
 		postReview(userId, id, content, star);
-		// const updatedReviews = [
-		// 	...data.reviews,
-		// 	{
-		// 		userId: userId,
-		// 		content: content,
-		// 		star: star,
-		// 	},
-		// ];
-		// setData({...data, reviews: updatedReviews});
 		setReviewlist([
 			...reviewlist,
 			{
@@ -74,11 +64,7 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 		<>
 			{!isAddReview ? (
 				<>
-					<ShopView
-						data={data}
-						reviewlist={reviewlist}
-						endMessage={endMessage}
-					/>
+					<ShopView data={data} reviewlist={reviewlist} />
 					<Text color={'red'}>Commands</Text>
 					<Box>
 						<Text color={theme.commandFirst}>:q - quit</Text>
@@ -123,7 +109,7 @@ const ShopDetail = ({id, setId, userId, singleShop}) => {
 	);
 };
 
-const ShopView = ({data, reviewlist, endMessage}) => {
+const ShopView = ({data, reviewlist}) => {
 	const starRateString = '⭐'.repeat(Math.round(data.averageStar));
 
 	return (
@@ -137,7 +123,10 @@ const ShopView = ({data, reviewlist, endMessage}) => {
 					<Text>"name" : "{data.name}",</Text>
 				</Box>
 				<Box>
-					<Text marginLeft={2}>"location" : "{data.location}",</Text>
+					<Text>"location" : "{data.location}",</Text>
+				</Box>
+				<Box>
+					<Text>"storeUrl" : "{data.url}",</Text>
 				</Box>
 				<Box>
 					<Text>"nearStation" : "{data.station}",</Text>

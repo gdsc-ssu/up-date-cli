@@ -9,8 +9,8 @@ const getAllPlaceCheck = (page, station) =>
 
 const getSinglePlaceCheck = placeId => UpdateAxios.get(`/place/${placeId}`);
 
-const getReviewCheck = placeId =>
-	UpdateAxios.get(`/review/place/${placeId}?page=1`);
+const getReviewCheck = (placeId, page) =>
+	UpdateAxios.get(`/review/place/${placeId}?page=${page}`);
 
 const postShop = (
 	userId,
