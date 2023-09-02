@@ -64,8 +64,8 @@ const ShopPost = ({userId, category, setStoreName}) => {
 
 	// menu
 	const [menuList, setMenuList] = useState([]);
-	const [menuName, setMenuName] = useState('');
-	const [menuPrice, setMenuPrice] = useState(0);
+	const [name, setName] = useState('');
+	const [price, setPrice] = useState(0);
 
 	const [confirmCommand, setConfirmCommand] = useState(''); // 입력 확인
 	const [isEdit, setIsEdit] = useState(false); // 입력 수정
@@ -199,8 +199,8 @@ const ShopPost = ({userId, category, setStoreName}) => {
 			if (key.return) {
 				if (
 					lastKeyPress === 'return' ||
-					menuName.length == 0 ||
-					menuPrice == 0
+					name.length == 0 ||
+					price == 0
 				) {
 					setInputStep(prevInputStep => prevInputStep + 1);
 					setLastKeyPress(null); // reset the last key press
@@ -263,10 +263,10 @@ const ShopPost = ({userId, category, setStoreName}) => {
 	const addMenu = () => {
 		setMenuList([
 			...menuList,
-			{name: menuName.split('\\')[0].trim(), price: menuPrice},
+			{name: name.split('\\')[0].trim(), price: price},
 		]);
-		setMenuName(''); // 입력 필드 초기화
-		setMenuPrice(0); // 입력 필드 초기화
+		setName(''); // 입력 필드 초기화
+		setPrice(0); // 입력 필드 초기화
 		setFocus(0); // 포커스 초기화
 	};
 
@@ -282,9 +282,6 @@ const ShopPost = ({userId, category, setStoreName}) => {
 		setLongitude(response.data['documents'][0].x);
 		setPhoneNumber(response.data['documents'][0].phone);
 		setPlaceUrl(response.data['documents'][0].place_url);
-		// setLongitude(kakaoShops[0].x);
-		// setPhoneNumber(kakaoShops[0].phone);
-		// setPlaceUrl(kakaoShops[0].place_url);
 		setSelectedShopIndex(0);
 	};
 
@@ -425,14 +422,14 @@ const ShopPost = ({userId, category, setStoreName}) => {
 								<Box>
 									<Text>{'{'}"menuName" : "</Text>
 									<TextInput
-										value={menuName}
-										onChange={setMenuName}
+										value={name}
+										onChange={setName}
 										focus={focus == 0}
 									/>
 									<Text>", "menuPrice" : </Text>
 									<TextInput
-										value={menuPrice.toString()}
-										onChange={value => setMenuPrice(parseInt(value) || 0)}
+										value={price.toString()}
+										onChange={value => setPrice(parseInt(value) || 0)}
 										focus={focus == 1}
 									/>
 									<Text>{'}'}</Text>
