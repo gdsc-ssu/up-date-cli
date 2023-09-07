@@ -192,24 +192,7 @@ const ShopPost = ({userId, category, setStoreName}) => {
 		}
 
 		if (inputStep == 4) {
-			if (key.tab) {
-				setFocus((focus + 1) % 2);
-			}
-
-			if (key.return) {
-				if (
-					lastKeyPress === 'return' ||
-					name.length == 0 ||
-					price == 0
-				) {
-					setInputStep(prevInputStep => prevInputStep + 1);
-					setLastKeyPress(null); // reset the last key press
-					return;
-				} else {
-					addMenu();
-					return;
-				}
-			}
+			return;
 		}
 
 		// step 5는 입력 확인
@@ -424,13 +407,25 @@ const ShopPost = ({userId, category, setStoreName}) => {
 									<TextInput
 										value={name}
 										onChange={setName}
-										focus={focus == 0}
+										focus={focus === 0}
+										onSubmit={() => {
+											setFocus(1);
+										}}
 									/>
 									<Text>", "menuPrice" : </Text>
 									<TextInput
 										value={price.toString()}
-										onChange={value => setPrice(parseInt(value) || 0)}
-										focus={focus == 1}
+										onChange={value => setPrice(value)}
+										onSubmit={() => {
+											if (price !== 0 && name.length !== 0) {
+												addMenu();
+											} else {
+												setInputStep(prevInputStep => prevInputStep + 1);
+												setLastKeyPress(null);
+												return;
+											}
+										}}
+										focus={focus === 1}
 									/>
 									<Text>{'}'}</Text>
 								</Box>
