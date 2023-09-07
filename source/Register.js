@@ -58,7 +58,9 @@ const Register = ({setIsSelected, setSpaceStep}) => {
 			</Box>
 			{nextStepInfo === 2 ? (
 				<Box>
-					<Text color={theme.neonGreen}>Do you have a girlfriend / boyfriend? (y/n): </Text>
+					<Text color={theme.neonGreen}>
+						Do you have a girlfriend / boyfriend? (y/n):{' '}
+					</Text>
 					<TextInput value={girlfriend} onChange={setGirlfriend} />
 				</Box>
 			) : (

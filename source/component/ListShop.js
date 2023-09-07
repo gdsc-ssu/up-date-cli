@@ -4,7 +4,7 @@ import theme from '../Theme.js';
 import TextInput from 'ink-text-input';
 import EachShop from './EachShop.js';
 import shoplist from '../examples/shoplist.js';
-import { getAllPlaceCheck } from '../api/remote.js';
+import {getAllPlaceCheck} from '../api/remote.js';
 
 const ListShop = ({shops, setShops, setType}) => {
 	const [confirmCommand, setConfirmCommand] = useState('');
